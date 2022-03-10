@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .world_List{
+        width: 1200px;
+        height : 600px;
+        position: relative;
+        top: 30px;
+        left: 50%;
+        transform: translate(-50%, 0%);
+    }
+
+    .world_map{
+        position: absolute;
+        top: 30px;
+        left: 50%;
+        transform: translate(-50%, 0%);
+    }
+
+    .aisa{
+        width: 100px;
+        height: 100px;
+        background-color: aqua;
+        border-radius: 50%;
+        position: absolute;
+        cursor: pointer;
+        right: 380px;
+        top: 75px;
+        opacity: 0;
+    }
+
+    .Europe{
+        width: 100px;
+        height: 100px;
+        background-color: aqua;
+        border-radius: 50%;
+        position: absolute;
+        cursor: pointer;
+        right: 500px;
+        top: 75px;
+        opacity: 0;
+ }
+    .aisa:hover{
+        opacity: 1;
+        transition: all ease 1s 0s;
+        transform: scaleY( 2 )
+    }
+    .Europe:hover{
+        opacity: 1;
+        transition: all ease 1s 0s;
+        transform: scaleY( 2 )
+    }
+
+
+</style>
+<body>
+    <div class="world_List">
+    <div class="world_map">
+        <img src="세계지도.JPG" width="640px" alt="">
+    </div>
+            <div class="aisa "><a href="#">아시아</a></div>
+            <div class="Europe"><a href="#">유럽</a></div>
+            <div class="south_america"><a href="#" >남미</a></div>
+            <div class=""><a href="#" class="north_america">북미</a></div>
+            <div class=""><a href="#" class="africa">아프리카</a></div>
+    </div>
+</body>
+</html>

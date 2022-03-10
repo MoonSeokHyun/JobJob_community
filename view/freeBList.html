@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <style>
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+a:hover {color: #6199ff;}
+
+/* 테이블 색상  */
+table {
+  width: 80%;
+  margin: 40px auto 10px;
+  border-collapse: collapse;
+}
+th {
+  background: #3498db;
+  color: #fff;
+}
+td, th {
+  border: 1px solid #dbdbdb;
+  padding: 5px 10px;
+  font-size:12px;
+}
+tr:nth-of-type(odd) { 
+	background: #eee; 
+}
+
+/* 체크박스의 크기 */
+.check {
+  width:15px;
+  height:15px;
+}
+
+/* 컬럼의 너비 */
+
+.no {width: 5%;}
+.title {/* 나머지가 자동으로 맞춰집니다. */}
+.writer {width: 10%;}
+.date {width: 10%;}
+.count {width: 5%;}
+.like {width: 5%;}
+
+/* 컬럼의 정렬 */
+tr td:nth-child(1){text-align:center;}
+tr td:nth-child(2){text-align:center;}
+tr td:nth-child(3){text-align:center;}
+tr td:nth-child(4){text-align:center;}
+tr td:nth-child(5){text-align:center;}
+
+/*페이징*/
+  ul.pagination {
+        
+	list-style:none;
+	display:inline;
+	padding:5px;
+	margin-left:40%;
+	width:10px;
+	color:#000;
+	font:bold 12px tahoma;
+	border:1px solid #eee;
+	text-align:center;
+	text-decoration:none;
+      }
+  
+
+
+      
+   ul li a:hover, ul li a:focus {
+	color:#fff;
+	border:1px solid rgb(4, 107, 155);
+	background-color:rgb(4, 107, 155);
+     }
+
+  ul li{
+    margin-left: 10px;
+    display: inline;
+  
+  }
+
+    
+    .search-wrap {
+      text-align: right;
+      margin-right: 10%;
+    }
+
+    .btn {
+      margin-left: 10%;
+    }
+    .container-fluid {
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+    
+
+    </style>
+    
+
+
+</head>
+
+<body>
+
+  <header id="header">
+
+  </header>
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-9 col-xs-12 board-table">
+                    <div class="titlebox">
+                        Best 인기글
+                    </div>
+                    <hr>
+
+                    <form action="#">
+                        <div class="search-wrap clearfix">
+                            
+                            <select class="form-control count-select">
+                                <option>5개씩</option>
+                                <option>10개씩</option>
+                                <option>15개씩</option>
+                                <option>20개씩</option>
+                            </select>
+                        </div>
+                        <table>
+                            <colgroup>
+                              
+                              <col class="no">
+                              <col class="title">
+                              <col class="writer">
+                              <col class="date">
+                              <col class="count">
+                              <col class="like">
+                            </colgroup>
+                            <thead>
+                              <tr>
+                               
+                                <th>번호</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>작성일</th>
+                                <th>조회수</th>
+                                <th>좋아요</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                               
+                                <td>1</td>
+                                <td><a href="#">글의 제목 - 1</a></td>
+                                <td>거북이</td>
+                                <td>2019.10.14</td>
+                                <td>100</td>
+                                <td>좋아요</td>
+                                
+
+                              </tr>
+                              <tr>
+                               
+                                <td>1</td>
+                                <td><a href="#">글의 제목 - 2</a></td>
+                                <td>거북이</td>
+                                <td>2019.10.14</td>
+                                <td>100</td>
+                                <td>좋아요</td>
+                                
+
+                              </tr>
+                              <tr>
+                               
+                                <td>1</td>
+                                <td><a href="#">글의 제목 - 2</a></td>
+                                <td>거북이</td>
+                                <td>2019.10.14</td>
+                                <td>100</td>
+                                <td>좋아요</td>
+                                
+
+                              </tr>
+                              <tr>
+                               
+                                <td>1</td>
+                                <td><a href="#">글의 제목 - 2</a></td>
+                                <td>거북이</td>
+                                <td>2019.10.14</td>
+                                <td>100</td>
+                                <td>좋아요</td>
+                                
+
+                              </tr>
+                               
+                            </tbody>
+                         </table>
+                          <button class="btn btn-info">글쓰기</button>
+                          
+                          
+                    
+                            <div class="page">
+                              <hr>  
+                                <ul class="pagination">
+                                  <li class="prev"><a href="#">이전</a></li>
+                                  <li class="active"><a href="#">1</a></li>
+                                  <li><a href="#">2</a></li>
+                                  <li><a href="#">3</a></li>
+                                  <li><a href="#">4</a></li>
+                                  <li><a href="#">5</a></li>
+                                  <li class="next"><a href="#">다음</a></li>
+                              </ul>
+                              
+                            </div>
+                        </div>
+                        
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  <footer id="footer">
+
+  </footer>  
+
+</body>
+<script>
+
+  $(document).ready(function(){
+    $('#header').load("header.html");
+    $('#footer').load("footer.html");
+      });
+</script>
+
+</html>

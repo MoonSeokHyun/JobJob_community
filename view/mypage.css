@@ -1,0 +1,127 @@
+h2 {
+    font-size: 20px;
+    margin-top: 80px;
+    margin-bottom: 40px;
+    font-weight: bold;
+    padding-top: 35px;
+    
+}
+.mypage_form p {
+    display: inline-block;
+    width: 110px;
+    
+}
+.mypage {
+    /* border: 1px solid black; */
+    margin: 0 auto;
+    width: 700px;
+    height: 700px;
+    box-shadow: 5px 5px 5px 5px rgb(167, 167, 167);
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 3%;
+    position: relative;
+    margin-bottom: 80px;
+}
+.mypage_form .check {
+    display: none;
+}
+
+.mypage_form input {
+    margin-bottom: 20px;
+    margin-left: 18px;
+}
+.name_box input {
+    width: 100px;
+    /* background-color: rgb(236, 236, 236); */
+    color: rgb(172, 172, 172);
+}
+.id_box input {
+    width: 100px;
+    /* background-color: rgb(236, 236, 236); */
+    color: rgb(172, 172, 172);
+}
+
+.job_box {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.job_box p {
+    margin-bottom: 20px;
+}
+.job_box .job {
+    margin-right: 20px;
+}
+.job_check {
+    margin: 0 100px;
+}
+.email_box input {
+    margin: 0;
+    margin-bottom: 20px;
+    width: 100px;
+}
+.email_box p {
+    display: inline-block;
+    margin-bottom: 15px;
+}.email_box .me {
+    margin-bottom: 15px;
+}
+.addr_box input {
+    margin-bottom: 5px;
+}
+.addr_box .addr {
+    margin-left: 140px;
+}
+.addr_box .addr2 {
+    width: 400px;
+}
+.btn .mod_sub{
+    position: absolute;
+    top: 580px;
+    left: 430px;
+}
+.btn .cancel {
+    position: absolute;
+    top: 580px;
+    left: 200px;
+}
+.btn button {
+   -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+   -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+   -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+   -o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+   transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+   display: block;
+   margin: 20px auto;
+   width: 70px;
+   text-decoration: none;
+   border-radius: 4px;
+   padding: 10px;
+}
+
+.btn .mod_sub {
+   color: black;
+   box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+}
+.btn .cancel {
+    color: black;
+   box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+}
+
+.btn .mod_sub:hover {
+   color: rgba(255,255,255, 0.85);
+   box-shadow: rgba(137,71,233, 0.7) 0 0px 0px 40px inset;
+}
+.btn .cancel:hover {
+   color: rgba(0,0,0, 0.85);
+   box-shadow: rgba(233,150,122, 0.7) 0 0px 0px 40px inset;
+}
+
+.mypage_form .btn .join_sub {
+    margin-left: 170px;
+    /* background-color: rgb(170, 206, 226); */
+    border-radius: 10%;
+    
+}
+
+

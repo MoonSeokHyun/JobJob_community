@@ -1,0 +1,110 @@
+* {
+    margin: 20;
+    padding: 20;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h2 {
+    text-align: left;
+}
+
+sec {
+    margin: 10;
+    padding: 10;
+}
+
+.board_list_body .option .op_btn1 {
+    color: white;
+    background-color: deepskyblue;
+}
+
+.board_list_body .option .op_btn2 {
+    color: white;
+    background-color: darkgray;
+}
+
+.board_list_wrap {
+    padding: 50px;
+}
+
+.board_list_head,
+.board_list_body .item {
+    padding: 10px 0;
+    font-size: 0;
+}
+
+.board_list_head {
+    border-top: 2px solid green;
+    border-bottom: 1px solid #ccc;
+}
+
+.board_list_body .item {
+    border-bottom: 1px solid #ccc;
+}
+
+.board_list_head > div,
+.board_list_body .item > div {
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+}
+
+.board_list_head > div {
+    font-weight: 600;
+}
+
+.board_list .num {
+    width: 10%;
+}
+
+.board_list .public {
+    width: 15%;
+}
+
+.board_list_body div.tit {
+    text-align: center;
+}
+
+.board_list_body div.tit a:hover {
+    text-decoration: underline;
+}
+
+.board_list .tit {
+    width: 10%;
+}
+
+.board_list .content {
+    width: 15%;
+}
+
+.board_list .comment {
+    width: 10%;
+}
+
+.board_list .option {
+    width: 10%;
+}
+
+
+.borad_modal {
+    display: none;
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;  
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal_wrap {
+    display: none;
+    margin: 0 auto;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+

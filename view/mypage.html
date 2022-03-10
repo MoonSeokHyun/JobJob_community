@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+    <link rel="stylesheet" href="mypage.css">
+    <title>마이페이지</title>
+</head>
+<body>
+    <header id="header">
+        
+    </header>
+    <div class="mypage">
+        <form action="#">
+            <div class="mypage_form">
+                <h2>마이페이지</h2>
+                <div class="insert">
+                    <!--이름-->
+                    <div class="name_box">
+                        &nbsp;&nbsp;<p>이름</p> <input type="text" name="name" class="name" readonly value="홍길동"><br>
+                    </div>
+                    <!--아이디-->
+                    <div class="id_box">
+                        &nbsp;&nbsp;<p>아이디</p> <input type="text" name="id" class="id" readonly value="abc1234"><br>
+                        <span class="check" id="id_check"></span><br>
+                    </div>
+                    <!--비밀번호-->
+                    <div class="pw_box">
+                        * <p>비밀번호</p> <input type="password" class="pw" name="pw"><br>
+                        * <p>비밀번호 확인</p> <input type="password" class="pw_ck" name="pw_check"><br>
+                        <span class="check" id="pw_check"></span><br>
+                    </div>
+                    <!--전화번호-->
+                    <div class="tel_box">
+                        * <p>전화번호</p> <input type="tel" class="phone" name="phone"><br>
+                    </div>
+                    <!--주소-->
+                    <div class="addr_box">
+                        &nbsp; <p>주소</p> <input type="text" name="addr_num" class="addr_num" disabled id="sample6_postcode" placeholder="우편번호"> 
+                        <input type="button" onclick="sample6_execDaumPostcode()"  value="주소 찾기" ><br>
+                        <input type="text" class="addr addr1" name="addr1" id="sample6_address" ><br>
+                        <input type="text" class="addr addr2" name="addr2" id="sample6_detailAddress">
+                        <input type="text" class="addr addr3" name="addr3" id="sample6_extraAddress">
+                    </div>
+                    <!--현재 상태 구분-->
+                    <div class="job_box">
+                        &nbsp;<p><현재 상태></p><br>
+                        <div class="job_check">
+                            <input type="radio" name="job" value="jobfind"><p class="job">취업준비생</p>
+                            <input type="radio" name="job" value="in_job"><p class="job">재직자</p><br>
+                        </div>
+                    </div>
+                    <div class="btn">
+                        <button type="button" class="cancel">취소</button>
+                        <button type="button" class="mod_sub custom-btn">수정</button>
+                    </div>
+                </div>
+            </div>
+        </form> 
+    </div>
+    <footer id="footer">
+
+    </footer>
+</body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script>
+    $(document).ready(function(){
+    $('#header').load("header.html");
+    $('#footer').load("footer.html");
+    });
+
+    $('.mod_sub').click(function(){
+
+        
+        // 비밀번호 검증
+        if($('.pw').val() === ''){
+            alert('비밀번호는 필수 값입니다.');
+            return
+        }else if($('.pw_ck').val() == ''){
+            alert('비밀번호 확인 값은 필수 입니다.');
+        }else if($('.pw').val() != $('.pw_ck').val()){
+            alert('비밀번호 값이 서로 다릅니다.');
+        }
+
+        //전화번호 검증
+        else if($('.phone').val() == ''){
+            alert('전화번호는 필수 값입니다.')
+        }
+
+        //주소 검증
+        else if($('.addr1').val() === '' || $('.addr2').val() === ''|| $('.addr3').val() === ''){
+            alert('주소를 입력해주세요');
+        }else if(!$('input:radio[name=job]').is(':checked')){
+            alert('현재 상태를 체크해주세요');
+            return;
+        }else{
+            $('.mod_sub').submit()
+            alert('마이페이지 수정 완료')
+        }
+
+        
+    });
+
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+
+                var addr = ''; 
+                var extraAddr = ''; 
+
+                if (data.userSelectedType === 'R') { 
+                    addr = data.roadAddress;
+                } else { 
+                    addr = data.jibunAddress;
+                }
+
+                if(data.userSelectedType === 'R'){
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+</script>
+</html>
