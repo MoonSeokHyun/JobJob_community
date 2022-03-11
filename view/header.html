@@ -580,10 +580,10 @@ nav > ul > li:hover ul{opacity:1; }
         <div class="modal_body">
 
             <div class="login-form">
-                <form>
+                <form method="post" class="loginForm"> 
                     <input type="text" name="id" class="text-field id" placeholder="아이디">
                     <input type="password" name="password" class="text-field password" placeholder="비밀번호">
-                    <input type="button" value="Login" class="submit-btn submit">
+                    <input type="button" value="Login" class="submit-btn login_btn submit">
                     <input type="button" value="Close" class="submit-btn modal_end_btn ">
                 </form>
                 <div class="links">
@@ -601,9 +601,9 @@ nav > ul > li:hover ul{opacity:1; }
     <div class="modal2">
         <div class="modal_body2">
             <div class="pw_find_form">
-                <form>
-                    <input type="text" name="id" class="id text-field" placeholder="아이디">
-                    <input type="password" name="email"  class="password text-field" placeholder="이메일">
+                <form method="post" class="passwordFind">
+                    <input type="text" name="id" class="pwFind_id text-field" placeholder="아이디">
+                    <input type="text" name="email"  class="email text-field" placeholder="이메일">
                     <input type="button" value="비밀번호 찾기" class="submit-btn pw_check submit">
                     <input type="button" value="Close" class="submit-btn modal_end_btn ">
 
@@ -634,7 +634,7 @@ nav > ul > li:hover ul{opacity:1; }
     <div class="new_pw_modal">
         <div class="modal_body4">
             <div class="new_pw_form">
-                <form>
+                <form method="post" class="newPw_form">
                     <input type="text" name="new_pw" class="new_pw text-field" placeholder="새로운 비밀번호 입력">
                     <input type="text" name="new_pw" class="new_pw_ck text-field" placeholder="비밀번호 확인">
                     <input type="button" value="Check" class="submit-btn new_pw_btn submit">
@@ -664,11 +664,27 @@ $firstmenu.mouseenter(function(){
 // 나중에 submit이나 ajax로 데이터 베이스 접속해서 서로 비교할것!!
 // 로그인 모달 
 $(function(){
-$('.login_modal_btn').click(function(){
-    $('.modal').show(500);
-}); // open modal end
-$('.modal_end_btn').click(function(){
-    $('.modal').fadeOut();
+    $('.login_modal_btn').click(function(){
+        $('.modal').show(500);
+    }); // open modal end
+    $('.modal_end_btn').click(function(){
+        $('.modal').fadeOut();
+    });
+
+    // 메인 로그인 페이지 빈값확인
+    $('.login_btn').click(function(){
+        if($('.id').val() === ''){
+            alert('아이디를 입력하세요.');
+            $('.id').focus();
+            return;
+        } else if($('.password').val() === ''){
+            alert('비밀번호를 입력하세요.');
+            $('.password').focus();
+            return;
+        } else {
+            //$('.loginForm').submit(); //ajax로 추후 처리 예정
+            $('.id').val() =='';
+        }
 });
 
 // 비밀번호 찾기 모달
@@ -679,15 +695,34 @@ $('.pw_find_modal_btn').click(function(){
 });
 $('.modal_end_btn').click(function(){
     $('.modal2').fadeOut();
-})
+});
+
+// 비밀번호 찾기 모달 빈값 확인
+$('.pw_check').click(function(){
+    if($('.pwFind_id').val() === ''){
+        alert('아이디를 입력하세요.');
+        $('.pwFind_id').focus();
+        return;
+    } else if($('.email').val() === ''){
+        alert('이메일를 입력하세요.');
+        $('.email').focus();
+        return;
+    } else {
+        //$('.passwordFind').submit(); //ajax로 추후 처리 예정
+        $('.pw_check_form_modal').show(500); // 인증번호 입력할 수 있게 모달창 띄우기
+    }
+});
+
+
+
 
 //인증번호 모달
-$('.pw_check').click(function(){
+/*$('.pw_check').click(function(){
     $('.pw_check_form_modal').show(500);
-});
+}); */
 $('.modal_end_btn').click(function(){
     $('.pw_check_form_modal').fadeOut();
-})
+});
 
 
 
@@ -697,21 +732,26 @@ $('.modal_end_btn').click(function(){
 $('.Check').click(function(){
     console.log($('.check_num').val())
     if($('.check_num').val() === ''){
-    alert('빈칸을 확인해주세요!');  
-}else{
-    $('.new_pw_modal').show(500);
-}
+        alert('빈칸을 확인해주세요!');  
+        $('.check_num').focus();
+        return;
+    }else{
+        //ajax로 인증번호 일치 확인
+        $('.new_pw_modal').show(500); // 새로운 비밀번호 설정 모달 뜨기
+    }
 });
 
 
 $('.new_pw_btn').click(function(){
-    if($('.new_pw').val() === ''){
-    alert('빈칸을 확인해주세요!');  
-}else if($('.new_pw').val() === $('.new_pw_ck').val()){
-    alert('비밀번호가 서로 다릅니다.');
-}else{
-    $('.new_pw_btn').submit()
-}
+    if($('.new_pw').val() === '' || $('.new_pw_ck').val() === ''){
+        alert('입력란을 확인해주세요!');  
+        return;
+    } else if($('.new_pw').val() !== $('.new_pw_ck').val()){
+        alert('비밀번호가 일치하지 않습니다.');
+        return;
+    } else{
+        //$('.newPw_form').submit() ajax 로 처리 
+    }
 
 });
 
