@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/admin_board.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+        
+    <title>나의 활동</title>
+    
+    <style>
+
+        h2 {
+            text-align: left;
+            margin-left: 270px;
+            margin-top: 50px;
+        }
+
+        /* 4개 종류 분류 */
+        .record_list {
+            margin-top: 20px;
+            margin-left: 270px;
+        }
+
+        .record_list_1 {
+            margin-right: 15px;
+        }
+
+        .record_list_2 {
+            margin-right: 15px;
+        }
+
+        .record_list_3 {
+            margin-right: 15px;
+        }
+
+        .record_list_1:hover{
+            color: gray;
+        }
+
+        .record_list_2:hover{
+            color: gray;
+        }
+
+        .record_list_3:hover{
+            color: gray;
+        }
+
+        .record_list_4:hover{
+            color: gray;
+        }
+
+        /* 테이블 */
+        table {
+            border-collapse: collapse;
+        }
+
+        .myRecord_wrap{
+            margin: 0 auto;
+            border-top: 1px solid #666;
+            border-bottom: 1px solid #f2f2f2;
+            width: 1000px;
+            text-align: center;
+        }
+        
+        .myRecord_head {
+            margin-top: 40px;
+            border-bottom: 1px solid #f2f2f2;
+            
+        }
+
+        .myRecord_content {
+            padding: 10px 0;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .myRecord_head_nm {
+            padding: 5px;
+            font-size: 15px;
+            padding-right: 85px;
+        }
+
+        .myRecord_content_nm {
+            padding: 3px;
+            font-size: 13px;
+            padding-right: 85px;
+        }    
+
+    </style>
+
+</head>
+
+<body>
+   
+    <header id="header">
+        <script>
+            $(document).ready(function(){
+            $('#header').load("header.html");
+              });
+        </script>
+    </header>
+
+    <section>
+        <h2>
+            나의 활동
+        </h2>
+
+    </section>
+        <div class="record_list">
+            <a href="#" class="record_list_1">작성글</a>
+            <a href="#" class="record_list_2">작성댓글</a>
+            <a href="#" class="record_list_3">스크랩</a>
+            <a href="#" class="record_list_4">좋아요한 글</a>
+        </div>
+        
+    <section style="padding-top: 10px; padding-bottom: 100px;">
+        <table class="myRecord_wrap">
+            <thead class="myRecord_head">
+                <tr> 
+                    <th class="myRecord_head_nm">작성일</th>
+                    <th class="myRecord_head_nm">분류</th>
+                    <th class="myRecord_head_nm">제목</th>
+                    <th class="myRecord_head_nm">작성자</th>
+                    <th class="myRecord_head_nm">조회</th>
+                </tr>
+            </thead>
+
+            <tbody>
+              <tr class="myRecord_content">
+                    <td class="myRecord_content_nm">2022.3.7</td>
+                    <td class="myRecord_content_nm">국내취업</td>
+                    <td class="myRecord_content_nm"><a href="#" class="nm_content">제목</a></td>
+                    <td class="myRecord_content_nm">작성자</td>
+                    <td class="myRecord_content_nm">10</td>
+                </td>
+              </tr>
+
+              <tr class="myRecord_content">
+                    <td class="myRecord_content_nm">2022.2.7</td>
+                    <td class="myRecord_content_nm">국외취업</td>
+                    <td class="myRecord_content_nm"><a href="#" class="nm_content">제목</a></td>
+                    <td class="myRecord_content_nm">작성자</td>
+                    <td class="myRecord_content_nm">5</td>
+                </td>
+              </tr>
+
+              <tr class="myRecord_content">
+                    <td class="myRecord_content_nm">2021.10.7</td>
+                    <td class="myRecord_content_nm">자소서</td>
+                    <td class="myRecord_content_nm"><a href="#">제목</a></td>
+                    <td class="myRecord_content_nm">작성자</td>
+                    <td class="myRecord_content_nm">15</td>
+                </td>
+              </tr>
+
+              <tr class="myRecord_content">
+                    <td class="myRecord_content_nm">2022.1.31</td>
+                    <td class="myRecord_content_nm">스터디</td>
+                    <td class="myRecord_content_nm"><a href="#">제목</a></td>
+                    <td class="myRecord_content_nm">작성자</td>
+                    <td class="myRecord_content_nm">7</td>
+                </td>
+              </tr>
+
+              <tr class="myRecord_content">
+                    <td class="myRecord_content_nm">2020.2.2</td>
+                    <td class="myRecord_content_nm">자소서 형식</td>
+                    <td class="myRecord_content_nm"><a href="#">제목</a></td>
+                    <td class="myRecord_content_nm">작성자</td>
+                    <td class="myRecord_content_nm">25</td>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+
+    </section>
+
+    <footer id="footer">
+        <script>
+            $(document).ready(function(){
+            $('#header').load("header.html");
+            $('#footer').load("footer.html");
+              });
+        </script>
+    </footer>      
+</body>
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.community.shy.JobBoard.mapper.IBoardMapper">
+  	
+  		<sql id="search">
+		<if test="condition == 'title'">
+			WHERE title LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'content'">
+			WHERE content LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'writer'">
+			WHERE writer LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'titleContent'">
+			WHERE title LIKE '%'||#{keyword}||'%'
+			OR content LIKE '%'||#{keyword}||'%'
+		</if>
+	</sql>
+  	
+	<select id="getJBoard" resultType="com.community.shy.command.BoardVO" >
+		
+		select * from
+		(
+		select rownum as rn , tbl. * from
+		(
+		SELECT * FROM job_board 
+		<include refid="search" />
+		where board_type = #{board_type} 
+		ORDER BY Board_no DESC
+		)tbl
+		)
+		<![CDATA[
+		WHERE rn > (#{paging.pageNum ,jdbcType=VARCHAR} - 1) * #{paging.countPerPage,jdbcType=VARCHAR}
+		AND rn <= #{paging.pageNum,jdbcType=VARCHAR} * #{paging.countPerPage,jdbcType=VARCHAR}
+		]]>
+		
+	</select>
+	
+	<select id="getJTotal" resultType="int" >
+		select count(*) from job_board where board_type = #{board_type} <include refid="search" />
+	</select>
+
+  </mapper>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+    <link rel="stylesheet" href="../css/mypage.css">
+    <title>마이페이지</title>
+</head>
+<body>
+    <header id="header">
+        
+    </header>
+    <div class="mypage">
+        <form action="#">
+            <div class="mypage_form">
+                <h2>마이페이지</h2>
+                <div class="insert">
+                    <!--이름-->
+                    <div class="name_box">
+                        &nbsp;&nbsp;<p>이름</p> <input class="name" type="text" name="name" readonly value="홍길동"><br>
+                    </div>
+                    <!--아이디-->
+                    <div class="id_box">
+                        &nbsp;&nbsp;<p>아이디</p> <input class="id" type="text" name="id" readonly value="abc1234"><br>
+                        <!-- <span class="check" id="id_check"></span><br> -->
+                    </div>
+                    <!--비밀번호-->
+                    <div class="pw_box">
+                        * <p>비밀번호</p> <input type="password" name="pw" id="pw" class="pw" placeholder="영문자 숫자 기호 포함 8자 이상">
+                        <span class="check pw_check" id="pw_check_span"></span><br>
+                        * <p>비밀번호 확인</p> <input type="password" name="pw_check" id="pw_check"><br>
+                    </div>
+                    <!--전화번호-->
+                    <div class="tel_box">
+                        * <p>휴대폰번호</p> <input type="tel" name="phone" id="phone" maxlength="13" value="010-1111-2222" placeholder="숫자만 입력해주세요"><br>
+                    </div>
+                    <!--주소-->
+                    <div class="addr_box">
+                        &nbsp; <p>*주소</p> <input type="text" name="addr_num" class="addr_num" disabled id="sample6_postcode" placeholder="우편번호" value="10111"> 
+                        <input type="button" onclick="sample6_execDaumPostcode()"  value="주소 찾기" class="findaddr my_button" ><br>
+                        <input type="text" class="addr addr1" name="addr1" id="sample6_address" disabled value="경기도 고양시"><br>
+                        <input type="text" class="addr addr2" name="addr2" id="sample6_extraAddress" disabled value="덕양구">
+                        <input type="text" class="addr addr2" name="addr2" id="sample6_detailAddress" placeholder="상세주소" value="101-101">
+                    </div>
+                    <!--현재 상태 구분-->
+                    <div class="job_box">
+                        &nbsp;<p>*현재 상태</p>
+                        <div class="job_check">
+                            <div class="job_radio">
+                                <input type="radio" name="job" class="radio1" value="jobfind"><p class="job">취업준비생</p>
+                                <input type="radio" name="job" value="in_job"><p class="job">재직자</p><br>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="btn">
+                        <button type="button" class="cancel">취소</button>
+                        <button type="button" class="mod_sub custom-btn">수정</button>
+                    </div>
+                </div>
+            </div>
+        </form> 
+    </div>
+    <footer id="footer">
+
+    </footer>
+</body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    $(document).ready(function(){
+    $('#header').load("header.html");
+    $('#footer').load("footer.html");
+    });
+
+    //주소찾기
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+
+                var addr = ''; 
+                var extraAddr = ''; 
+
+                if (data.userSelectedType === 'R') { 
+                    addr = data.roadAddress;
+                } else { 
+                    addr = data.jibunAddress;
+                }
+
+                if(data.userSelectedType === 'R'){
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }//주소찾기 끝
+
+    //비밀번호 정규식
+    const getPwCheck = RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
+
+    //수정버튼을 클릭했을 때
+    $('.mod_sub').click(function(){
+        //비밀번호 빈칸 확인
+        if($('#pw').val() === '') {
+            alert('비밀번호를 입력해주세요');
+            $('#pw').focus();
+            return;
+        }
+        //비밀번호 검증
+        else if(!getPwCheck.test($('#pw').val())) {
+            alert('비밀번호 양식에 맞춰주세요');
+            $('#pw_check_span').html('<b style="font-size:14px; color:red;">[특수문자 포함 8자 이상]</b>');
+            $('#pw').focus();
+            return;
+        }
+        //비밀번화 확인란 빈칸 확인
+        else if($('#pw_check').val() === '') {
+            alert('비밀번호 확인을 입력해주세요');
+            $('#pw_check').focus();
+            return;
+        }
+        //비밀번호 일치 여부
+        else if($('#pw').val() !== $('#pw_check').val()) {
+            alert('비밀번호가 일치하지 않습니다');
+            $('#pw_check').focus();
+            return;
+        }
+        else if($('#phone').val() === ''){
+            alert('전화번호는 필수입니다');
+            $('#phone').focus();
+            return;
+        }
+        //주소
+        else if($('.addr_num').val() === ''){
+            alert('주소입력은 필수입니다');
+            // $('.addr_box').focus();
+            return
+        }
+        //현재 상태 체크 여부
+        else if(!$('input:radio[name=job]').is(':checked')){
+            alert('현재 상태를 체크해주세요');
+            return;
+        }
+        //수정 완료
+        else {
+            const result = confirm('수정하시겠습니까?')
+            if(result){
+                $('.join_sub').submit();
+                alert('회원가입이 완료되었습니다');
+
+            }
+            else {
+                
+            }
+        }
+    });//수정버튼 이벤트 끝
+
+    //전화번호 '-' 붙이기 
+    var autoHypenPhone = function(str){
+        str = str.replace(/[^0-9]/g, '');
+        var tmp = '';
+        if( str.length < 4){
+            return str;
+        }else if(str.length < 7){
+            tmp += str.substr(0, 3);
+            tmp += '-';
+            tmp += str.substr(3);
+            return tmp;
+        }else if(str.length < 11){
+            tmp += str.substr(0, 3);
+            tmp += '-';
+            tmp += str.substr(3, 3);
+            tmp += '-';
+            tmp += str.substr(6);
+            return tmp;
+        }else{              
+            tmp += str.substr(0, 3);
+            tmp += '-';
+            tmp += str.substr(3, 4);
+            tmp += '-';
+            tmp += str.substr(7);
+            return tmp;
+        }
+        return str;
+    }
+
+
+var phoneNum = document.getElementById('phone');
+
+phoneNum.onkeyup = function(){
+    console.log(this.value);
+    this.value = autoHypenPhone( this.value ) ;  
+}//전화번호 입력 끝
+
+</script>
+</html>
