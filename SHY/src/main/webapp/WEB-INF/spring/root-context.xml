@@ -44,9 +44,11 @@
    </bean>
    
    
+   
 
 <mybatis-spring:scan base-package="com.community.shy.JobBoard.mapper"/> 
-   
+<mybatis-spring:scan base-package="com.community.shy.JobComment.mapper"/>    
+
 
  
 

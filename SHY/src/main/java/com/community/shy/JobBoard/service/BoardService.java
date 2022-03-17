@@ -27,23 +27,37 @@ public class BoardService implements IBoardService {
 		
 		return mapper.getJBoard(data);
 	}
+	
+	@Override
+	public List<BoardVO> getJBoardForMain(ArrayList board_types) {
+		List<BoardVO> list = new ArrayList<BoardVO>();
+		
+		Map<String, Object> data = new HashMap<>();
+		data.put("board_types", board_types);
+		
+		return mapper.getJBoardForMain(data);
+	}
 
 	@Override
-	public void BoardRegist(BoardVO vo) {
-		// TODO Auto-generated method stub
+	public void BoardJRegist(BoardVO vo) {
+		mapper.BoardJRegist(vo);
 
 	}
 
 	@Override
-	public void DeleteBoard(int board_no) {
-		// TODO Auto-generated method stub
+	public void JBoardDelete(int board_no) {
+		mapper.JBoardDelete(board_no);
 
 	}
 
 	@Override
-	public BoardVO BoardDetail(int board_no, int board_type) {
-		// TODO Auto-generated method stub
-		return null;
+	public BoardVO JBoardDetail(int board_no, int board_type) {
+		
+		Map<String, Object> data = new HashMap<>();
+		data.put("board_no", board_no);
+		data.put("board_type", board_type);
+		
+		return mapper.JBoardDetail(data);
 	}
 	@Override
 	public int getJTotal(PageVO paging , int board_type) {
@@ -56,5 +70,18 @@ public class BoardService implements IBoardService {
 		
 		return mapper.getJTotal(data);
 	}
-
+	
+	@Override
+	public List<BoardVO> getBoard(int board_type) {
+		return mapper.getBoard(board_type);
+	}
+	@Override
+	public void JBoardUpdate(BoardVO vo) {
+		mapper.JBoardUpdate(vo);		
+	}
+	@Override
+	public List<BoardVO> mainBoard(BoardVO vo) {
+		
+		return mapper.mainBoard(vo);
+	}
 }

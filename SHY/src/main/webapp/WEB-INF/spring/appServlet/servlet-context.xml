@@ -24,7 +24,8 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.community.shy" />
-	<context:component-scan base-package="com.board" />
+
+ 
 
 
 </beans:beans>

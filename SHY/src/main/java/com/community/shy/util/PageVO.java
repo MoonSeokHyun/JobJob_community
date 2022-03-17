@@ -17,7 +17,7 @@ public class PageVO {
 	
 	public PageVO() {
 		this.pageNum = 1;
-		this.countPerPage = 3;
+		this.countPerPage = 5;
 	}
 	
 }

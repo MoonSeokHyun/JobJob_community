@@ -482,70 +482,46 @@
             <div class="list_box1">
               <div class="box_main_title">국내 취업</div>
               <table class="boardlist">
-                <th>제목</th>
-                <th>시간</th>
                 <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
+                	<th>제목</th>
+               	 	<th>시간</th>
                 </tr>
-                <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
-                </tr>
-                <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
-                </tr>
-                <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
-                </tr>
+                <c:forEach var="vo" items="${boardList_in}">
+					<tr>
+						<td><a href="<c:url value ='/board/JBoardDetail?board_no=${vo.board_no}&board_type=${vo.board_type}'/>">${vo.board_title}</a></td>
+						<td>${vo.board_regdate}</td>
+					</tr>
+				</c:forEach>
               </table>
             </div>
             <div class="list_box2">
               <div class="box_main_title">해외 취업</div>
               <table class="boardlist">
-                <th>제목</th>
-                <td>5분전 게시 </td>
                 <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
+                	<th>제목</th>
+               	 	<th>시간</th>
                 </tr>
-                <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
-                </tr>
-                <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
-                </tr>
-                <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
-                </tr>
+                <c:forEach var="vo" items="${boardList_out}">
+					<tr>
+						<td><a href="<c:url value ='/board/JBoardDetail?board_no=${vo.board_no}&board_type=${vo.board_type}'/>">${vo.board_title}</a></td>
+						<td>${vo.board_regdate}</td>
+					</tr>
+				</c:forEach>
               </table>
             </div>
-            <div class="list_box3">
+				<div class="list_box3">
               <div class="box_main_title">자격증</div>
               <table class="boardlist">
-                <th>제목</th>
-                <td>시간 </td>
                 <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
+                	<th>제목</th>
+               	 	<th>시간</th>
                 </tr>
-                <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
-                </tr>
-                <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
-                </tr>
-                <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
-                </tr>
+                <c:forEach var="vo" items="${boardList_certificate}">
+					<tr>
+						<td><a href="<c:url value ='/board/JBoardDetail?board_no=${vo.board_no}&board_type=${vo.board_type}'/>">${vo.board_title}</a></td>
+						<td>${vo.board_regdate}</td>
+					</tr>
+				</c:forEach>
               </table>
             </div>
             <div class="list_box4">
@@ -576,29 +552,23 @@
       </div>
     </section>
 
+
+            
     <section class="study_box">
         <div class="job_info_box">
           <div class="job_info_box_inner">
             <div class="job_info_box_title">취업 정보</div>
             <table class="job_info_table">
+            <tr>
               <th>제목</th>
-              <td>시간 </td>
-              <tr>
-                <td>첫번쨰 게시글</td>
-                <td>5분전 게시 </td>
-              </tr>
-              <tr>
-                <td>첫번쨰 게시글</td>
-                <td>5분전 게시 </td>
-              </tr>
-              <tr>
-                <td>첫번쨰 게시글</td>
-                <td>5분전 게시 </td>
-              </tr>
-              <tr>
-                <td>첫번쨰 게시글</td>
-                <td>5분전 게시 </td>
-              </tr>
+              <th>시간 </th>
+             </tr>
+              <c:forEach var="vo" items="${job_info }">
+					<tr>
+						<td><a href="<c:url value ='/board/JBoardDetail?board_no=${vo.board_no}&board_type=${vo.board_type}'/>">${vo.board_title}</a></td>
+						<td>${vo.board_regdate}</td>
+					</tr>
+			</c:forEach>
             </table>
             <a href="#" class="myButton2">Click Me</a>
           </div>
@@ -607,24 +577,16 @@
           <div class="job_info_box_inner">
             <div class="job_info_box_title">스터디</div>
             <table class="job_info_table">
+            <tr>
               <th>제목</th>
-              <td>시간 </td>
-              <tr>
-                <td>첫번쨰 게시글</td>
-                <td>5분전 게시 </td>
-              </tr>
-              <tr>
-                <td>첫번쨰 게시글</td>
-                <td>5분전 게시 </td>
-              </tr>
-              <tr>
-                <td>첫번쨰 게시글</td>
-                <td>5분전 게시 </td>
-              </tr>
-              <tr>
-                <td>첫번쨰 게시글</td>
-                <td>5분전 게시 </td>
-              </tr>
+              <th>시간 </th>
+             </tr>
+              <c:forEach var="vo" items="${study_info}">
+					<tr>
+						<td><a href="<c:url value ='/board/JBoardDetail?board_no=${vo.board_no}&board_type=${vo.board_type}'/>">${vo.board_title}</a></td>
+						<td>${vo.board_regdate}</td>
+					</tr>
+			</c:forEach>
             </table>
             <a href="#" class="myButton2">Click Me</a>
           </div>
@@ -633,24 +595,16 @@
           <div class="job_info_box_inner">
             <div class="job_info_box_title">알쓸신잡</div>
             <table class="job_info_table">
+            <tr>
               <th>제목</th>
-              <td>시간 </td>
-              <tr>
-                <td>첫번쨰 게시글</td>
-                <td>5분전 게시 </td>
-              </tr>
-              <tr>
-                <td>첫번쨰 게시글</td>
-                <td>5분전 게시 </td>
-              </tr>
-              <tr>
-                <td>첫번쨰 게시글</td>
-                <td>5분전 게시 </td>
-              </tr>
-              <tr>
-                <td>첫번쨰 게시글</td>
-                <td>5분전 게시 </td>
-              </tr>
+              <th>시간 </th>
+             </tr>
+              <c:forEach var="vo" items="${resume_info}">
+					<tr>
+						<td><a href="<c:url value ='/board/JBoardDetail?board_no=${vo.board_no}&board_type=${vo.board_type}'/>">${vo.board_title}</a></td>
+						<td>${vo.board_regdate}</td>
+					</tr>
+			</c:forEach>
             </table>
             <a href="#" class="myButton2">Click Me</a>
           </div>

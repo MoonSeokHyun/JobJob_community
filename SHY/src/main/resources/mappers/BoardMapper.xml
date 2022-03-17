@@ -20,6 +20,22 @@
 			OR content LIKE '%'||#{keyword}||'%'
 		</if>
 	</sql>
+	
+	<select id="getJBoardForMain" resultType="com.community.shy.command.BoardVO" >
+		
+		select * from
+		(
+		SELECT *
+		FROM job_board 
+		where board_type in
+		<foreach collection="board_types" item="type" index="index" separator="," open="(" close=")">
+        	#{type}
+     	</foreach>
+     	ORDER BY Board_no DESC
+		)
+		<![CDATA[where rowNum<=4]]>
+		
+	</select>
   	
 	<select id="getJBoard" resultType="com.community.shy.command.BoardVO" >
 		
@@ -43,5 +59,43 @@
 	<select id="getJTotal" resultType="int" >
 		select count(*) from job_board where board_type = #{board_type} <include refid="search" />
 	</select>
-
+	
+	<select id="getBoard" resultType="com.community.shy.command.BoardVO" >
+		SELECT * FROM job_board where board_type = #{board_type} 
+	</select>
+	
+	<insert id="BoardJRegist">
+		insert into job_board(board_no,board_title,board_writer,board_content,board_hit,board_like,board_hate,board_type)
+		values(jobBoard_seq.nextval,#{board_title},#{board_writer},#{board_content},0,0,0,#{board_type})
+	</insert>
+	
+	<!-- 상세보기 -->
+	<select id="JBoardDetail" resultType="com.community.shy.command.BoardVO" >
+		select * from job_board where board_type = #{board_type} and board_no = #{board_no} 	
+	</select>
+	
+	<!-- 삭제 -->
+	<update id="JBoardDelete">
+		update job_board set board_type = 99 where board_no = #{board_no}
+	</update>
+	
+	<!-- 게시물 수정 -->
+	<update id="JBoardUpdate">
+		update job_board set board_title=#{board_title},board_writer=#{board_writer},board_content=#{board_content}
+		where board_no = #{board_no} 
+	</update>
+	
   </mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
