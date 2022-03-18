@@ -6,19 +6,16 @@
   <mapper namespace="com.community.shy.JobBoard.mapper.IBoardMapper">
   	
   		<sql id="search">
-		<if test="condition == 'title'">
-			WHERE title LIKE '%'||#{keyword}||'%'
+		<if test="paging.condition == 'board_title'">
+			and board_title LIKE '%'||#{paging.keyword}||'%'
 		</if>
-		<if test="condition == 'content'">
-			WHERE content LIKE '%'||#{keyword}||'%'
+		<if test="paging.condition == 'board_content'">
+			and board_content LIKE '%'||#{paging.keyword}||'%'
 		</if>
-		<if test="condition == 'writer'">
-			WHERE writer LIKE '%'||#{keyword}||'%'
-		</if>
-		<if test="condition == 'titleContent'">
-			WHERE title LIKE '%'||#{keyword}||'%'
-			OR content LIKE '%'||#{keyword}||'%'
-		</if>
+		<if test="paging.condition == 'board_writer'">
+			and board_writer LIKE '%'||#{paging.keyword}||'%'
+		</if> 
+
 	</sql>
 	
 	<select id="getJBoardForMain" resultType="com.community.shy.command.BoardVO" >
@@ -44,8 +41,8 @@
 		select rownum as rn , tbl. * from
 		(
 		SELECT * FROM job_board 
+		where board_type = #{board_type}
 		<include refid="search" />
-		where board_type = #{board_type} 
 		ORDER BY Board_no DESC
 		)tbl
 		)

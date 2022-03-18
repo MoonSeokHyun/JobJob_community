@@ -21,14 +21,13 @@ public class CommentService implements ICommentService {
 
 	@Override
 	public List<CommentVO> getList(int com_bno) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.getList(com_bno);
 	}
 
 	@Override
 	public int getTotal(int com_bno) {
 		// TODO Auto-generated method stub
-		return 0;
+		return mapper.getTotal(com_bno);
 	}
 
 }

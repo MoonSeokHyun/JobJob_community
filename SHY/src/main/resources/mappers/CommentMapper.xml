@@ -7,8 +7,16 @@
   	
   	<insert id="CommentRegist">
   		insert into job_comment(com_no,com_writer,com_content,com_like,com_hate,re_com,com_type,com_bno)
-		values (COMMENT_SEQ.nextval ,#{com_writer},#{com_content},0,0,1,1,#{com_bno});
+		values (COMMENT_SEQ.nextval ,#{com_writer},#{com_content},0,0,1,1,#{com_bno})
   	</insert>
+  	
+  	<select id="getTotal" resultType="int">
+  		select count(*) from job_comment where com_bno = #{com_bno}
+  	</select>
+  	
+  	<select id="getList" resultType="com.community.shy.command.CommentVO">
+  		select * from job_comment where com_bno = #{com_bno}
+  	</select>
   </mapper>
   
   

@@ -385,26 +385,26 @@
                 <div class="comment-box">
                     
    		                 <div class="comment-count">댓글 <span id="count">0</span></div>
-   		                 <form action="#">
+
    		                 	   <span class="c-icon"><i class="fa-solid fa-user"></i> 
 	                        <span class="anonym">작성자 : 
-	                    	    <input type="text" class="form-control" id="com_writer" placeholder="이름"  style="width: 50px">
+	                    	    <input type="text" class="form-control" id="com_writer" placeholder="이름" name ="com_writer"  style="width: 50px">
 	                        </span>
 	                         
 	                        	
 	                        </span>
                      <!--<img src="/익명.jpg" width ="50px" alt="My Image"><!-->
                     <span class="comment-sbox">
-                        <textarea class="comment-input" id="" cols="80" rows="2" name="com_contnet"></textarea>
+                        <textarea class="comment-input" id="com_content" cols="80" rows="2" name="com_content"></textarea>
                         <span class="com-function-btn" type="hidden">
                             <a href="#"><i class="fa-solid fa-heart"></i></a>
                             <a href="#"><i class="fa-solid fa-pen-to-square"></i></a>
                             <a href="#"><i class="fa-solid fa-trash-can"></i></a>
                     </span>
                     	<div>
-                    		<a href="#">댓글 등록</a>
+                    		<button id="Comment_regist"> 댓글등록</button>
                     	 </div>
-   		                 </form>
+
                  
                         <!-- 
                         
@@ -448,7 +448,88 @@
     <script>
 
    	// 댓글
-   	
+   	   	$(document).ready(function() {
+		
+   		$('#Comment_regist').click(function() {
+			
+   			//Json으로 전달할 파라미터 변수선언
+   			const com_bno = ${board_no};
+   			const com_writer = $('#com_writer').val();
+   			const com_content = $('#com_content').val();
+   			
+   			console.log(com_bno);
+   			console.log(com_writer);
+   			console.log(com_content);
+   		
+   			if(com_writer == '' || com_content == ''){
+   				alert('내용을 입력하세요');
+   				return;
+   			}
+   			
+   			$.ajax({
+   				type:'post',
+   				url:'<c:url value="/Comment/InsertComment"/>',
+   				data: JSON.stringify(
+   					{
+   						"com_bno":com_bno,
+   						"com_writer":com_writer,
+   						"com_content":com_content
+   					}		
+   				),
+   				contentType: 'application/json',
+   				success:function(data){
+   					console.log('통신성공' + data);
+   					$('#com_writer').val('');
+   					$('#com_content').val('');
+   					getList();
+   				},
+   				error:function(){
+   					alert('통신실패');
+   				}
+   			});// 댓글 비동기 끝
+   			
+		});// 댓글등록 이벤트 끝
+		
+
+		
+		function getList() {
+			
+			const com_bno = ${board_no};
+			
+			$.getJSON(
+				"<c:url value='/Comment/CommentList/'/>"+com_bno,
+				function(data) {
+					if(data.total > 0){
+						var list = data.list;
+						
+						var comment_html = "<div>";
+						
+						$('#count').html(data.total);
+						for(i = 0;i < list.length;i++){
+							var content = list[i].com_content;
+							var writer = list[i].com_writer;
+							comment_html += "<span>" + writer + "</span><br/>";
+							comment_html += "<span>" + content + "</span>";
+							
+						}
+						
+						comment_html += "</div>";
+						
+						$(".comment_Box").html(comment_html);
+					}else{
+						var comment_html = "<div>등록된 댓글이 없습니다.</div>";
+						$(".comment_Box").html(comment_html);
+					}
+			
+				
+				}
+			)
+		
+		}
+		
+		
+	}) ;
+
 
 	
 

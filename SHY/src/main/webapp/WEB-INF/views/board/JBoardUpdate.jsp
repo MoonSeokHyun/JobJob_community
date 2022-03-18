@@ -410,15 +410,7 @@
 	
 
     </script>
-    <script>
-            ClassicEditor
-                .create( document.querySelector( '#classic' ))
-                .catch( error => {
-                    console.error( error );
-                } );
 
-              
-        </script>
 
     
  

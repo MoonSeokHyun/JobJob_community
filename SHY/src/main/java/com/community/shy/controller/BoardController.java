@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.community.shy.JobBoard.service.IBoardService;
+import com.community.shy.JobComment.service.ICommentService;
 import com.community.shy.command.BoardVO;
 import com.community.shy.util.PageCreator;
 import com.community.shy.util.PageVO;
@@ -19,6 +20,7 @@ public class BoardController {
 
 	@Autowired
 	private IBoardService service;
+
 	
 	@GetMapping("/JBoardList")
 	public String BoardList(int board_type , PageVO paging ,Model model) {

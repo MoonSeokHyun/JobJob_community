@@ -260,14 +260,15 @@ tr td:nth-child(5) {
 				<div class="search-wrap">
 
 					<div id="search_box">
-						<form action=<c:url value="/board/JBoardList?board_type=${type}"/>>
+						<form action=<c:url value="/board/JBoardList"/>>
+							<input type="hidden" name="board_type" value="${type}" />
 							<div class="search-wrap clearfix">
 								<select class="form-control search-select" name="condition">
-									<option value="title"
+									<option value="board_title"
 										${pc.paging.condition == 'board_title' ? 'selected' : ''}>제목</option>
-									<option value="content"
+									<option value="board_content"
 										${pc.paging.condition == 'board_content' ? 'selected' : ''}>내용</option>
-									<option value="writer"
+									<option value="board_writer"
 										${pc.paging.condition == 'board_writer' ? 'selected' : ''}>작성자</option>
 								</select> <input type="text" name="keyword"
 									class="form-control search-input" value="${pc.paging.keyword}">
