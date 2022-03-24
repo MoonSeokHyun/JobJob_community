@@ -1,0 +1,230 @@
+h2 {
+    font-size: 27px;
+    /* margin-top: 50px;
+    margin-bottom: 40px; */
+    font-weight: bold;
+    padding-top: 35px;
+    margin: 50px auto 40px;
+    width: 130px;
+}
+input::placeholder {
+    color: rgb(143, 143, 143);
+}
+.star {
+    float: right;
+    font-size: 14px;
+    /* margin-bottom: 10px; */
+}
+.insert {
+    margin-top: 10px;
+    margin-left: 30px;
+}
+.clearfix::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+.join {
+    margin: 0 auto;
+    width: 700px;
+    height: 880px;
+    box-shadow: 5px 5px 5px 5px rgb(167, 167, 167);
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 1%;
+    position: relative;
+    margin-bottom: 70px;
+}
+.join_form p {
+    display: inline-block;
+    width: 110px;
+    
+}
+
+.join_form .id_check {
+    margin-bottom: 10px;
+    
+}
+
+
+.join_form input {
+    margin-bottom: 20px;
+    margin-left: 18px;
+    border-radius: 4px;
+    border: 1px solid #666666;
+    
+}
+.name_box input {
+    width: 100px;
+    
+}
+.id_box input {
+    width: 135px;
+    
+}
+.id_box button {
+    display: inline;
+    margin-left: -2px;
+    
+}
+.pw_box input {
+    display: inline;
+}
+.job_box {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.job_box p {
+    margin-bottom: 20px;
+    width: 80px;
+    margin-bottom: 0;
+    margin-right: 0;
+    
+}
+.job_box div {
+    display: inline;
+}
+.job_box .job {
+    margin-right: 20px;
+}
+.job_check {
+    margin: 0 46px;
+}
+.job_radio {
+    /* border: 1px solid black; */
+    width: 300px;
+    height: 30px;
+}
+.job_radio input{
+    margin-left: 30px;
+    margin-top: 5px;
+    
+}
+.email_box input {
+    margin: 0;
+    margin-bottom: 20px;
+    width: 100px;
+}
+.email_box p {
+    display: inline-block;
+    margin-bottom: 15px;
+}.email_box .me {
+    margin-bottom: 15px;
+}
+.addr_box input {
+    margin-bottom: 5px;
+    /* margin-left: 2px; */
+}
+.addr_box .findaddr {
+    margin-left: -4px;
+}
+.addr_box .addr1 {
+    width: 255px;
+}
+.addr_box .addr {
+    margin-left: 140px;
+}
+.addr_box .addr2 {
+    width: 400px;
+}
+.btn .join_sub{
+    position: absolute;
+    top: 780px;
+    left: 410px;
+}
+.btn .cancel {
+    position: absolute;
+    top: 780px;
+    left: 190px;
+}
+.btn button {
+	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	display: block;
+	margin: 20px auto;
+	width: 90px;
+	text-decoration: none;
+	border-radius: 4px;
+	padding: 10px;
+}
+
+.btn .join_sub {
+	color: black;
+	box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+}
+.btn .cancel {
+    color: black;
+	box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+}
+
+.btn .join_sub:hover {
+	color: rgba(255,255,255, 0.85);
+	box-shadow: rgba(137,71,233, 0.7) 0 0px 0px 40px inset;
+}
+.btn .cancel:hover {
+	color: rgba(0,0,0, 0.85);
+	box-shadow: rgba(233,150,122, 0.7) 0 0px 0px 40px inset;
+}
+
+.my_button {
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+	background-color:#ededed;
+	border-radius:4px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	/* font-family:Arial; */
+	font-size:11px;
+	/* font-weight:bold; */
+	padding:5px 12px 2px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+.my_button:hover {
+	background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+	background-color:#dfdfdf;
+}
+.my_button:active {
+	position:relative;
+	top:1px;
+}
+
+.company {
+    display: inline-block;
+    width: 400px;
+    margin-left: 10px;
+}
+
+/* .my_button {
+	box-shadow:inset 0px 1px 0px 0px #efdcfb;
+	background:linear-gradient(to bottom, #dfbdfa 5%, #bc80ea 100%);
+	background-color:#dfbdfa;
+	border-radius:6px;
+	border:1px solid #c584f3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:11px;
+	font-weight:bold;
+	padding:7px 12px 4px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #9752cc;
+}
+.my_button:hover {
+	background:linear-gradient(to bottom, #bc80ea 5%, #dfbdfa 100%);
+	background-color:#bc80ea;
+}
+.my_button:active {
+	position:relative;
+	top:1px;
+} */
+
+
+
+

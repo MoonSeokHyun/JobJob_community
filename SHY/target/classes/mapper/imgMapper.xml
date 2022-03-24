@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.community.shy.img.mapper.IImgMapper">
+  	
+  	<select id="getImgNo" resultType="com.community.shy.board.command.ImgVO" >
+  		select MAX(img_no)+1 as img_no from upload_img
+  	</select>
+  	
+  	
+  	 <insert id="insertImg" parameterType="com.community.shy.board.command.ImgVO" >
+		insert into upload_img(img_no, path)
+		values(#{img_no},#{path})
+  	</insert> 
+  	
+  	
+
+  	<select id="getimg" resultType="com.community.shy.board.command.ImgVO" >
+  		select * from  upload_img where img_no = #{img_no}
+  	</select>
+  </mapper>
+  

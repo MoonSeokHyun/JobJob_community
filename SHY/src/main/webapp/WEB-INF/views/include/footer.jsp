@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -193,7 +192,7 @@
                   <li><a href="#" class="terms_of_service">이용약관</a></li>
                   <li><a href="#" class="privacy_Policy">개인정보정보처리방침</a></li>
                   <li><a href="#" class="announcement">공지사항</a></li>
-                  <li><a href="#">Job Job</a></li>
+                  <li><a href="#">취준커뮤니티</a></li>
               </ul>
             </div>
           </footer>
@@ -472,13 +471,12 @@ UFO소프트
                                 </tr>
                                 <tr>
                                     <td class="t-title">CONTENT</td>
-                                    <td><textarea class="form-control" rows="15" name="content" placeholder="내용을 입력해주세요"></textarea></td>
+                                    <td><textarea class="form-control" rows="15" name="content"></textarea></td>
                                 </tr>
                             </tbody>
                         </table>
                     </form>
-
- 
+                  </div>
                   <div class="close_inner">
                     <a href="#" class="myButton close">작성</a>
                     <a href="#" class="myButton close">닫기</a>
@@ -493,7 +491,7 @@ UFO소프트
         // footer 모달
         $(function(){
     $('.terms_of_service').click(function(){
-        $('.terms_of_service_modal').show(1000);
+        $('.terms_of_service_modal').show(500);
     }); // open modal end
     $('.close').click(function(){
         $('.terms_of_service_modal').fadeOut(100);
@@ -522,5 +520,4 @@ UFO소프트
 
 });
 </script>
-
 </html>

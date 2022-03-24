@@ -161,10 +161,10 @@ html, body {
 
 
 
-header {	
-	background:-webkit-linear-gradient(rgba(255,255,255,1) 50px,rgba(255,255,255,0.2) 50px);
-	transition: 0.4s ease-in;
-	height:50px;
+header {   
+   background:-webkit-linear-gradient(rgba(255,255,255,1) 50px,rgba(255,255,255,0.2) 50px);
+   transition: 0.4s ease-in;
+   height:50px;
 
 }
 
@@ -513,11 +513,11 @@ nav > ul > li:hover ul{opacity:1; }
 
     <header>
         <nav class="navbar">
-
-            
             <div class="container flex flex-center">
+			<a href="/SHY">
                 <div class="logo center mx-auto relative">
-                <div class="mark"></div>
+            
+                <div class="mark"> </div>
                 <span class="p">J</span><!-- 
             --><span class="r">O</span><!-- 
             --><span class="e1">B</span><!-- 
@@ -525,9 +525,11 @@ nav > ul > li:hover ul{opacity:1; }
             --><span class="s2">O</span><!-- 
             --><span class="e2">B</span><!-- 
             --><span class="d">!</span>
+           
+			
                 </div>
+            </a>
             </div>
-
             <ul class="clearfix header">
                 <li class="manu">국내취업
                     <ul>
@@ -550,25 +552,33 @@ nav > ul > li:hover ul{opacity:1; }
                         <li> <a href="<c:url value='/board/JBoardList?board_type=9'/>">민간자격증</a></li>
                         <li> <a href="<c:url value='/board/JBoardList?board_type=10'/>">어학</a></li>
                     </ul>
-                </li class="manu">
-                <li>왁자지껄
+                </li>
+                <li class="manu">왁자지껄
                     <ul>
                         <li> <a href="<c:url value='/board/JBoardList?board_type=11'/>">자유게시판</a></li>
                         <li> <a href="<c:url value='/board/JBoardList?board_type=12'/>">취뽀 게시판</a></li>
                     </ul>
-                </li class="manu study">
-                <li>스터디
+                </li>
+                <li class="manu">스터디
                     <ul>
                         <li> <a href="<c:url value='/board/JBoardList?board_type=13'/>">취업</a></li>
                         <li> <a href="<c:url value='/board/JBoardList?board_type=14'/>">자격증</a></li>
-                        <li> <a href="<c:url value='/board/JBoardList?board_type=1 5'/>">자소서</a></li>
+                        <li> <a href="<c:url value='/board/JBoardList?board_type=15'/>">자소서</a></li>
                     </ul>
                 </li>
     
             </ul>
 
         <div class="login">
-            <span> <a class="login_modal_btn" href="#">로그인</a></span>
+           <c:choose>
+              <c:when test="${login==null}">
+                 <span> <a class="login_modal_btn" href="#">로그인</a></span>
+              </c:when>
+              <c:otherwise>
+                 <span> <a class="logout" href="<c:url value='/user/logout' />" onclick="return confirm('로그아웃을 진행하시겠습니까?')">로그아웃</a></span>
+              </c:otherwise> 
+           </c:choose>
+            
         </div>
         </nav>
 
@@ -591,8 +601,8 @@ nav > ul > li:hover ul{opacity:1; }
                     <input type="button" value="Close" class="submit-btn modal_end_btn ">
                 </form>
                 <div class="links">
-                <a href="#">회원가입</a>&nbsp;&nbsp;
-                <a href="#" class="pw_find_modal_btn">비밀번호 찾기</a>
+                <a href="<c:url value='/user/join' />">회원가입</a>&nbsp;&nbsp;
+                <a href="#" class="pw_find_modal_btn" >비밀번호 찾기</a>
                 </div>
             </div>
         </div>
@@ -606,15 +616,15 @@ nav > ul > li:hover ul{opacity:1; }
         <div class="modal_body2">
             <div class="pw_find_form">
                 <form method="post" class="passwordFind">
-                    <input type="text" name="id" class="pwFind_id text-field" placeholder="아이디">
-                    <input type="text" name="email"  class="email text-field" placeholder="이메일">
-                    <input type="button" value="비밀번호 찾기" class="submit-btn pw_check submit">
+                    <input type="text" name="id" class="pwFind_id text-field" placeholder="아이디" id="find_pw_id">
+                    <input type="text" name="email"  class="email text-field" placeholder="이메일" id="find_pw_email">
+                    <input type="button" value="비밀번호 찾기" class="submit-btn pw_check submit" id="find_pw">
                     <input type="button" value="Close" class="submit-btn modal_end_btn ">
 
                 </form>
 
         </div>
-
+	</div>
     </div>
 
     <!-- 인증번호 모달 -->
@@ -623,13 +633,13 @@ nav > ul > li:hover ul{opacity:1; }
         <div class="modal_body3">
             <div class="pw_check_form">
                 <form>
-                    <input type="text" name="check_pw_num"  class="check_num text-field" placeholder="인증번호">
-                    <input type="button" value="Check" class="submit-btn Check submit">
+                    <input type="text" name="check_pw_num"  class="check_num text-field" id="find_pw_input" placeholder="인증번호">
+                    <input type="button" value="Check" class="submit-btn Check submit" id="find_pw_chk">
                     <input type="button" value="Close" class="submit-btn modal_end_btn ">
                 </form>
 
         </div>
-
+</div>
     </div>
 
 
@@ -638,15 +648,15 @@ nav > ul > li:hover ul{opacity:1; }
     <div class="new_pw_modal">
         <div class="modal_body4">
             <div class="new_pw_form">
-                <form method="post" class="newPw_form">
-                    <input type="text" name="new_pw" class="new_pw text-field" placeholder="새로운 비밀번호 입력">
-                    <input type="text" name="new_pw" class="new_pw_ck text-field" placeholder="비밀번호 확인">
-                    <input type="button" value="Check" class="submit-btn new_pw_btn submit">
+                <form action="<c:url value='/user/modifyPw' />" method="post" class="newPw_form">
+                    <input type="text" name="userId" class="new_pw text-field" placeholder="기존 아이디 입력">
+                    <input type="password" name="userPw" class="new_pw_ck text-field" placeholder="새로운 비밀번호">
+                    <input type="button" value="Check" class="submit-btn new_pw_btn submit" id="mod_pw_sub">
                     <input type="button" value="Close" class="submit-btn modal_end_btn ">
                 </form>
 
         </div>
-
+	</div>
     </div>
   
 </body>
@@ -674,11 +684,14 @@ $(function(){
     $('.modal_end_btn').click(function(){
         $('.modal').fadeOut();
     });
-
+    const userId = $('.id').val();
+    const userPw = $('.password').val();
+    const userInfo = {"userId":userId, "userPw":userPw}
     // 메인 로그인 페이지 빈값확인
     $('.login_btn').click(function(){
         if($('.id').val() === ''){
-            alert('아이디를 입력하세요.');
+            alert('아이디를 입력하세요.');        
+            console.log('아이디를 입력하세요.');
             $('.id').focus();
             return;
         } else if($('.password').val() === ''){
@@ -686,10 +699,138 @@ $(function(){
             $('.password').focus();
             return;
         } else {
-            //$('.loginForm').submit(); //ajax로 추후 처리 예정
-            $('.id').val() =='';
+        	console.log('id, pw 모두 입력함')
+           //$('.loginForm').submit(); //ajax로 추후 처리 예정
+				console.log('id:'+$('.id').val());
+				console.log('pw:'+$('.password').val());
+				const userId = $('.id').val();
+			    const userPw = $('.password').val();
+			    const userInfo = {"userId":userId, "userPw":userPw};
+          $.ajax({
+			type : 'post',
+			url : '<c:url value="/user/userLogin" />',
+			data : JSON.stringify(userInfo),
+			dataType:"text",
+			contentType : "application/json; charset=UTF-8",
+			success : function(data) {
+				//checkInput.attr('disabled', false);
+				//code = data;
+				//console.log(rs);
+				if(data === 'idFail'){
+					alert('db에 존재하지 않는 회원 아이디!');
+					//$('.loginForm').submit();
+					console.log('db에 존재하지 않는 회원');
+				} else if (data === 'pwFail'){
+					alert('db에 존재하는 회원, 비번틀림');
+					console.log('db에 존재하는 회원, 비번틀림');
+				} else {
+					alert('db에 존재하는 회원, 로긘 성공');
+					console.log('db에 존재하는 회원, 로긘 성공');
+					location.href='/SHY/';
+				}
+			},
+			error : function(status, error) {
+				console.log('에러발생!!');
+				console.log(userInfo);
+				console.log(status, error);
+			}
+		}); // end ajax 이메일 전송
+            //$('.id').val() =='';
         }
-});
+});//로그인 끝
+
+	//비밀번호 찾기
+	$('#find_pw').click(function(){
+		if($('#find_pw_id').val() === ''){
+			alert('아이디를 입력하세요');
+			return;
+		}
+		else if($('#find_pw_email').val() === ''){
+			alert('이메일을 입력하세요');
+			return;
+		}
+		else {
+				console.log('id, email 모두 입력함')
+		           //$('.loginForm').submit(); //ajax로 추후 처리 예정
+						console.log('id:'+$('#find_pw_id').val());
+						console.log('email:'+$('#find_pw_email').val());
+						const userId = $('#find_pw_id').val();
+					    const userEmail = $('#find_pw_email').val();
+					    const userInfo = {"userId":userId, "userEmail":userEmail};
+		          $.ajax({
+					type : 'post',
+					url : '<c:url value="/user/findPw" />',
+					data : JSON.stringify(userInfo),
+					dataType:"text",
+					contentType : "application/json; charset=UTF-8",
+					success : function(data) {
+						//checkInput.attr('disabled', false);
+						//code = data;
+						//console.log(rs);
+						if(data === 'idFail'){
+							alert('아이디가 일치하지 않습니다');
+							//$('.loginForm').submit();
+							console.log('db에 존재하지 않는 회원');
+						} else if (data === 'EmailFail'){
+							alert('이메일이 일치하지 않습니다');
+							console.log('db에 존재하는 회원, 이메일틀림');
+						} else {
+							
+							console.log('db에 존재하는 회원, 로긘 성공');
+							$('.pw_check_form_modal').show(500);
+							
+							//이메일 인증번호 전송
+							let code = '';
+							
+								const email = $('#find_pw_email').val();
+								console.log('이메일: ' + email);
+								const checkInput = $('#find_pw_input'); //인증번호 입력
+								
+								$.ajax({
+									type : 'GET',
+									url : '<c:url value="/user/pwMailCheck?email=" />' + email,
+									success: function(data) {
+										console.log('인증번호: ' + data);
+										checkInput.attr('disabled', false);
+										code = data;
+										alert('인증번호가 전송되었습니다');
+									}
+								});//end ajax 이메일
+								
+								//인증번호 비교
+								$('#find_pw_chk').click(function(){
+									const inputCode = $('#find_pw_input').val();
+			
+									if(inputCode === code) {
+										$('#email_check').attr('disabled',true);
+										$('#email1').attr('readonly',true);
+										$('#self_email').attr('readonly',true);
+										$('#detail_email').attr('onFocus', 'this.initialSelect = this.selectedIndex');
+								        $('#detail_email').attr('onChange', 'this.selectedIndex = this.initialSelect');
+										alert('인증번호가 일치합니다');
+										$('.new_pw_modal').show(500);
+										return;
+									} else {
+										alert('인증번호가 일치하지 않습니다');
+										return;
+									}
+								
+								});//인증번호 비교 끝
+						}
+					},
+					error : function(status, error) {
+						console.log('에러발생!!');
+						console.log(userInfo);
+						console.log(status, error);
+					}
+				});	
+		
+		}
+		
+	});//비밀번호 찾기 끝
+	
+    
+  
 
 // 비밀번호 찾기 모달
 $('.pw_find_modal_btn').click(function(){
@@ -702,7 +843,7 @@ $('.modal_end_btn').click(function(){
 });
 
 // 비밀번호 찾기 모달 빈값 확인
-$('.pw_check').click(function(){
+/* $('.pw_check').click(function(){
     if($('.pwFind_id').val() === ''){
         alert('아이디를 입력하세요.');
         $('.pwFind_id').focus();
@@ -713,9 +854,9 @@ $('.pw_check').click(function(){
         return;
     } else {
         //$('.passwordFind').submit(); //ajax로 추후 처리 예정
-        $('.pw_check_form_modal').show(500); // 인증번호 입력할 수 있게 모달창 띄우기
+        //$('.pw_check_form_modal').show(500); // 인증번호 입력할 수 있게 모달창 띄우기
     }
-});
+}); */
 
 
 
@@ -729,11 +870,23 @@ $('.modal_end_btn').click(function(){
 });
 
 
+$('.new_pw_btn').click(function(){
+    if($('.new_pw').val() === '' || $('.new_pw_ck').val() === ''){
+        alert('입력란을 확인해주세요');  
+        return;
+    }
+    else{
+    	alert('비밀번호가 수정되었습니다');
+        $('.newPw_form').submit();
+    }
 
 });
 
 
-$('.Check').click(function(){
+});
+
+
+/* $('.Check').click(function(){
     console.log($('.check_num').val())
     if($('.check_num').val() === ''){
         alert('빈칸을 확인해주세요!');  
@@ -743,21 +896,10 @@ $('.Check').click(function(){
         //ajax로 인증번호 일치 확인
         $('.new_pw_modal').show(500); // 새로운 비밀번호 설정 모달 뜨기
     }
-});
+}); */
 
 
-$('.new_pw_btn').click(function(){
-    if($('.new_pw').val() === '' || $('.new_pw_ck').val() === ''){
-        alert('입력란을 확인해주세요!');  
-        return;
-    } else if($('.new_pw').val() !== $('.new_pw_ck').val()){
-        alert('비밀번호가 일치하지 않습니다.');
-        return;
-    } else{
-        //$('.newPw_form').submit() ajax 로 처리 
-    }
 
-});
 
 
 

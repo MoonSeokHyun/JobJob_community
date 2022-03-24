@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.community.shy.board.JobBoard.mapper.IBoardMapper">
+  	
+  		<sql id="search">
+		<if test="paging.condition == 'board_title'">
+			and board_title LIKE '%'||#{paging.keyword}||'%'
+		</if>	
+		<if test="paging.condition == 'board_content'">
+			and board_content LIKE '%'||#{paging.keyword}||'%'
+		</if>
+		<if test="paging.condition == 'board_writer'">
+			and board_writer LIKE '%'||#{paging.keyword}||'%'
+		</if> 
+
+	</sql>
+	
+	<select id="getJBoardForMain" resultType="com.community.shy.board.command.BoardVO" >
+		
+		select * from
+		(
+		SELECT *
+		FROM job_board 
+		where board_type in
+		<foreach collection="board_types" item="type" index="index" separator="," open="(" close=")">
+        	#{type}
+     	</foreach>
+     	ORDER BY Board_no DESC
+		)
+		<![CDATA[where rowNum<=4]]>
+		
+	</select>
+  	
+	<select id="getJBoard" resultType="com.community.shy.board.command.BoardVO" >
+		
+		select * from
+		(
+		select rownum as rn , tbl. * from
+		(
+		SELECT * FROM job_board 
+		where board_type = #{board_type}
+		<include refid="search" />
+		ORDER BY Board_no DESC
+		)tbl
+		)
+		<![CDATA[
+		WHERE rn > (#{paging.pageNum ,jdbcType=VARCHAR} - 1) * #{paging.countPerPage,jdbcType=VARCHAR}
+		AND rn <= #{paging.pageNum,jdbcType=VARCHAR} * #{paging.countPerPage,jdbcType=VARCHAR}
+		]]>
+		
+	</select>
+	
+	<select id="getJTotal" resultType="int" >
+		select count(*) from job_board where board_type = #{board_type} <include refid="search" />
+	</select>
+	
+	<select id="getBoard" resultType="com.community.shy.board.command.BoardVO" >
+		SELECT * FROM job_board where board_type = #{board_type} 
+	</select>
+	
+	<!-- <insert id="BoardJRegist">
+		insert into job_board(board_no,board_title,board_writer,board_content,board_hit,board_like,board_hate,board_type)
+		values(jobBoard_seq.nextval,#{board_title},#{board_writer},#{board_content},0,0,0,#{board_type})
+	</insert> -->
+	<insert id="BoardJRegist">
+		insert into job_board(board_no,board_title,board_writer,board_content,board_hit,board_like,board_hate,board_img,board_img_path,board_type,board_regdate)
+		values(jobBoard_seq.nextval,#{board_title},#{board_writer},#{board_content},0,0,0,#{board_img,jdbcType=VARCHAR},#{board_img_path,jdbcType=VARCHAR},#{board_type},sysdate) 
+	</insert>
+	
+	<!-- 상세보기 -->
+	<select id="JBoardDetail" resultType="com.community.shy.board.command.BoardVO" >
+		select * from job_board where board_type = #{board_type} and board_no = #{board_no} 	
+	</select>
+	
+	<!-- 삭제 -->
+	<update id="JBoardDelete">
+		update job_board set board_type = 99 where board_no = #{board_no}
+	</update>
+	
+	<!-- 게시물 수정 -->
+	<update id="JBoardUpdate">
+		update job_board set board_title=#{board_title},board_writer=#{board_writer},board_content=#{board_content}
+		where board_no = #{board_no} 
+	</update>
+	
+	<!-- 내가 쓴글 불러오기 -->
+	<select id="myRecord" resultType="com.community.shy.board.command.BoardVO">
+		SELECT * FROM job_board
+		WHERE board_writer = #{writer}
+	</select>
+	
+	<!-- 어드민용 -->
+	<select id="getAdminList" resultType="com.community.shy.board.command.BoardVO">
+		SELECT* FROM(SELECT* FROM job_board order by board_no desc ) tbl 
+		<![CDATA[
+		where ROWNUM <=5
+		]]>
+		
+	</select>
+	
+	<!-- 어드민용 유저 게시글 보기 -->
+	
+		<select id="getUserBoardList" resultType="com.community.shy.board.command.BoardVO">
+			select * from job_board where board_writer = #{board_writer}
+		<![CDATA[
+		and ROWNUM <=10
+		]]>	
+		</select>
+  </mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

@@ -13,6 +13,7 @@
 
     <script src="https://kit.fontawesome.com/860e355b09.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
 </head>
 
 <style>
@@ -246,7 +247,14 @@
 
 </style>
 <body>
-    
+	<c:choose>
+	    <c:when test="${login == null}">
+	    	<script>
+	    		alert('회원만 글작성이 가능합니다');
+	    		history.back();
+	    	</script>
+	    </c:when>
+    <c:otherwise>
     <header id="header">
   <%@ include file="../include/header.jsp" %>
     </header>
@@ -307,29 +315,38 @@
             <div class ="second-box">
 
                 <div class="input_box"> 
-                    <form action="<c:url value ='/board/InsertForm'/>" name="registForm">
+                   <form action="<c:url value ='/board/InsertForm'/>" method="post" enctype="multipart/form-data" name="registForm">
                         <div class="inner_box1">
 
 
                         </div>
                         <div class="title_box">
                             <span> 제&nbsp;&nbsp;&nbsp;&nbsp;목 : &nbsp;&nbsp;&nbsp; </span>
-                            <input type="text" name="board_title" id="" class="title"> 
+                            <input type="text" name="board_title" id="" class="title" > 
                         </div>
                         <div class="writer_box">
                             <span> 작성자 : &nbsp;&nbsp;&nbsp;  </span>
-                            <input class="writer" type="text" name="board_writer" id="" ></input>
+                            <input class="writer" type="text" name="board_writer" id=""  value="${login.userId}" readonly></input>
+                        </div>
+                        <div class="writer_box">
+                            <span>이미지 등록하기</span>
+                            <input type="file" id="img_file" name="img_file">
+                             <input type="button" id="btn-img-upload" value="등록"/>
+                             <span id="img-url"></span>
                         </div>
                     
 
                         <div id="contnet">
-                            <textarea name="board_content" id="classic" 
+                        	<input type="hidden" name="board_content" id="board_content"/>
+                            <textarea name="content" id="content" 
                                       rows="20" cols="10"  
                                       placeholder="내용을 입력해주세요"
-                                      style="width: 800px"></textarea>
+                                      style="width: 800px">
+                                      
+                                      </textarea>
 
                              <!-- 첨부파일(이미지파일만 업로드가능) -->
-                            <input type="file" id="u_file" name="u_file" accept="image/*">
+                             <input type="file" id="u_file" name="u_file">
 
                               <!-- 이미지 미리보기 영역 -->
                             <div id="imgViewArea" style="margin-top:10px; display:none;">
@@ -377,13 +394,41 @@
       <footer id="footer">
        <%@ include file="../include/footer.jsp" %>
     </footer>
+    </c:otherwise>
+</c:choose>
     </body>
 
 
     <script>
     
+    CKEDITOR.replace( 'content' );
+    
+    $("#btn-img-upload").click(function(){
+    	var form = new FormData();
+        form.append( "img_file", $("#img_file")[0].files[0] );
+        
+         jQuery.ajax({
+             url : "<c:url value ='/getImgUrl'/>"
+           , type : "POST"
+           , processData : false
+           , contentType : false
+           , data : form
+           , success:function(response) {
+               $("#img-url").text(response);
+           }
+           ,error: function (jqXHR) 
+           { 
+               alert(jqXHR.responseText); 
+           }
+       });
+    });
+    
     // 글 작성 
     $('#Regist_btn').click(function() {
+    		
+    	$("#board_content").val(CKEDITOR.instances.content.getData());
+  
+    	
 		document.registForm.submit();
 	});
 

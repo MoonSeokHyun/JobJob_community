@@ -303,7 +303,7 @@ tr td:nth-child(5) {
 						<c:forEach var="vo" items="${boardList}">
 							<tr>
 								<td>${vo.board_no}</td>
-								<td><a href="<c:url value ='/board/JBoardDetail?board_no=${vo.board_no}&board_type=${type}'/>">${vo.board_title}</a></td>
+								<td><a href="<c:url value ='/board/JBoardDetail?board_no=${vo.board_no}&board_type=${type}'/>">${vo.board_title} <%-- (${count}) --%></a></td>
 								<td><a href="#" id="modal-writer1">${vo.board_writer}</a></td>
 								<td>${vo.board_regdate}</td>
 								<td>${vo.board_hit}</td>
@@ -382,7 +382,7 @@ tr td:nth-child(5) {
 	</footer>
 </body>
 <script>
-
+	console.log(${count})
 	//삭제 메시지
 	const msg = '${msg}';
 	if(msg !== '') {
@@ -413,13 +413,6 @@ tr td:nth-child(5) {
 
 		document.getElementById('modal-writer1').addEventListener('click',
 				onClick);
-		document.getElementById('modal-writer2').addEventListener('click',
-				onClick);
-		document.getElementById('modal-writer3').addEventListener('click',
-				onClick);
-		document.getElementById('modal-writer4').addEventListener('click',
-				onClick);
-
 		document.querySelector('.close-modalBtn').addEventListener('click',
 				offClick);
 

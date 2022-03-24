@@ -13,10 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.community.shy.JobBoard.service.IBoardService;
-import com.community.shy.command.BoardVO;
-import com.community.shy.util.PageCreator;
-import com.community.shy.util.PageVO;
+import com.community.shy.board.JobBoard.service.IBoardService;
+import com.community.shy.board.command.BoardVO;
+import com.community.shy.board.util.PageCreator;
+import com.community.shy.board.util.PageVO;
 
 /**
  * Handles requests for the application home page.

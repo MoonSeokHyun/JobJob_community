@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,11 +9,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 상세보기</title>
-   
+       <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
     <script src="https://kit.fontawesome.com/860e355b09.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
+<%
 
+	pageContext.setAttribute("CR", "\r"); 
+	
+	pageContext.setAttribute("LF", "\n"); 
+
+%>
 <style>
     .con{
         width: 1200px;
@@ -345,6 +352,7 @@
                                 <span>&nbsp; ${boardUpdate.board_hit}</span>
                             </div>
                         </div>
+                        
                         <div class="title_box">
                             <span> 제&nbsp;&nbsp;&nbsp;&nbsp;목 : &nbsp;&nbsp;&nbsp; </span>
                             <input type="text" name="board_title" id="" class="title" value="${boardUpdate.board_title}">
@@ -353,15 +361,20 @@
                             <span> 작성자 : &nbsp;&nbsp;&nbsp;  </span>
                             <input class="writer" type="text" name="board_writer" id="" value ="${boardUpdate.board_writer}"> 
                         </div>
-                    
-
-                        <div id="contnet">
-                            <textarea name="board_content" class ="txtcontent" id="classic" 
-                                      rows="20" cols="10" 
-                                      style="width: 800px" >
-                                      ${boardUpdate.board_content}
-                                 </textarea>
-                          </div>
+                        
+                         <div class="writer_box">
+                            <span>이미지 등록하기</span>
+                            <input type="file" id="img_file" name="img_file">
+                             <input type="button" id="btn-img-upload" value="등록"/>
+                             <span id="img-url"></span>
+                        </div>
+							
+ 							<div id="contnet">
+                        	<input type="hidden"  id="board_content"/>
+                            <textarea  id="content" name="board_content"
+                                      rows="20" cols="10"  
+                                      placeholder="내용을 입력해주세요"
+                                     ></textarea>
 						
 						<input type="hidden" name="board_type" value="${board_type}">
         				<input type="hidden" name="board_no" value="${board_no}">
@@ -403,11 +416,36 @@
       
     <script>
 
-   	
+	 CKEDITOR.replace( 'content' );
+	 
+	 $("#btn-img-upload").click(function(){
+	    	var form = new FormData();
+	        form.append( "img_file", $("#img_file")[0].files[0] );
+	        
+	         jQuery.ajax({
+	             url : "<c:url value ='/getImgUrl'/>"
+	           , type : "POST"
+	           , processData : false
+	           , contentType : false
+	           , data : form
+	           , success:function(response) {
+	               $("#img-url").text(response);
+	           }
+	           ,error: function (jqXHR) 
+	           { 
+	               alert(jqXHR.responseText); 
+	           }
+	       });
+	    });
+	    
+	 $("#content").val(CKEDITOR.instances.content.setData('${fn:replace(fn:replace(boardUpdate.board_content, LF, ''), CR, '')}'));
 	$('#Update_btn').click(function() {
+
+		
 		document.UpdateForm.submit();
 	});
 	
+
 
     </script>
 

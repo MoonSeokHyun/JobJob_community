@@ -7,25 +7,13 @@
       http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
       http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
    
-   <!-- 
-      프로젝트를 구성하다 보면 자주 변경되지 않는 설정 파일들이나 공통 정보들에 대한
-      내용이 존재하게 되고, 그 내용들은 한 번 지정되면 잘 바뀌지 않습니다.
-      이런 경우에는 .properties라는 파일을 사용하여 텍스트 형식으로 간단히 지정하고
-      필요할 때 불러와서 사용하는 방식을 많이 사용합니다.
-    -->
-     
-   <!-- 외부에 따로 설정한 설정파일을 참조하는 곳에 사용하는 클래스 등록
-   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-      <property name="location" value="classpath:/root-context/Hikari.properties" />
-   </bean>-->
-   
    
    
    <!-- 히카리 커넥션 DB 설정 -->
    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
       <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe" />
-      <property name="username" value="C##spring" />
+      <property name="username" value="c##spring" />
       <property name="password" value="spring" />
    </bean>
    
@@ -38,19 +26,18 @@
    <!-- 마이바티스 연결 객체 생성. -->
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="dataSource" ref="ds" />
-
-      
-      <property name="mapperLocations" value="classpath:/mappers/*.xml" /> 
+      <property name="mapperLocations" value="classpath:/mapper/*.xml" />
    </bean>
    
    
-   
-
-<mybatis-spring:scan base-package="com.community.shy.JobBoard.mapper"/> 
-<mybatis-spring:scan base-package="com.community.shy.JobComment.mapper"/>    
-
-
- 
-
+   <!--  위의 구현체 xml을 빈으로 등록하기 위해서는 타입이 필요하니까
+      인터페이스를 자동으로 스캔해서 빈으로 등록하기 위한 설정.-->
       
+   
+   <mybatis-spring:scan base-package="com.community.shy.user.mapper"/>
+   <mybatis-spring:scan base-package="com.community.shy.board.JobBoard.mapper" />
+   <mybatis-spring:scan base-package="com.community.shy.board.JobComment.mapper" />
+   <mybatis-spring:scan base-package="com.community.shy.img.mapper" />
+   
+     
 </beans>

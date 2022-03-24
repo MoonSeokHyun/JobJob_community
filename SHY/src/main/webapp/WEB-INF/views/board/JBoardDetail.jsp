@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 상세보기</title>
-   
+    <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
     <script src="https://kit.fontawesome.com/860e355b09.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
@@ -331,35 +331,33 @@
 						</c:when>
 					</c:choose>
                 </a></div>
-                <div class="Like"><i class="fa-solid fa-thumbs-up">좋아요<a href="#">12</a></i></div>
+                <div class="Like"><i class="fa-solid fa-thumbs-up">좋아요<a href="#">${boardDetail.board_like}</a></i></div>
             </div>
             <div class ="second-box">
 
                 <div class="input_box"> 
                     <form action="#">
                         <div class="inner_box1">
-                            <span>글번호 : ${board_no} </span>
-                            <span>&nbsp; 5</span>
+                            <span>글번호 :  </span>
+                            <span>&nbsp;${boardDetail.board_no}</span>
                             <div class="hit_box">
                                 <span>Hit : </span>
-                                <span>&nbsp; 5</span>
+                                <span>&nbsp; ${boardDetail.board_hit}</span>
                             </div>
                         </div>
                         <div class="title_box">
                             <span> 제&nbsp;&nbsp;&nbsp;&nbsp;목 : &nbsp;&nbsp;&nbsp; </span>
-                            <input type="text" name="" id="" class="title" readonly>
+                            <input type="text" name="" id="" class="title" value="${boardDetail.board_title}" readonly>
                         </div>
                         <div class="writer_box">
                             <span> 작성자 : &nbsp;&nbsp;&nbsp;  </span>
-                            <input class="writer" type="text" name="" id="" readonly> 
+                            <input class="writer" type="text" name="" id="" value="${boardDetail.board_writer }" readonly> 
                         </div>
                     
 
                         <div id="contnet">
-                            <textarea name="editorTxt" class ="txtcontent" id="classic" 
-                                      rows="20" cols="10" 
-                                      style="width: 800px" readonly>
-                                     최종 결과물에 들어가는 실제적인 문장 내용이 채워지기 전에 시각 디자인 프로젝트 모형의 채움 글로도 이용된다. 이런 용도로 사용할 때 로렘 입숨을 그리킹(greeking)이라고도 부르며, 때로 로렘 입숨은 공간만 차지하는 무언가를 지칭하는 용어로도 사용된다.</textarea>
+                        	<c:out value="${boardDetail.board_content}" escapeXml="false" />
+
                           </div>
 
         
@@ -490,6 +488,7 @@
    			
 		});// 댓글등록 이벤트 끝
 		
+		getList();
 
 		
 		function getList() {
