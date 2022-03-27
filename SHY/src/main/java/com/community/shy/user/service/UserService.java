@@ -41,6 +41,7 @@ public class UserService implements IUserService {
 	}
 	
 	
+	
 
 	@Override
 	public UserVO getInfo(String id) {
@@ -100,12 +101,16 @@ public class UserService implements IUserService {
 	@Override
 	public void successId(String id) {
 		mapper.successId(id);
-		
 	}
 
 	@Override
 	public void failed(String id) {
 		mapper.failed(id);
+	}
+	@Override
+	public void dropUser(String id) {
+		mapper.dropUser(id);
+		
 	}
 	
 }

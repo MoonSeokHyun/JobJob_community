@@ -25,5 +25,5 @@ public class BoardVO {
 	private String board_img_path;
 	private int board_type;
 	private Timestamp board_regdate;
-
+	private int count;
 }

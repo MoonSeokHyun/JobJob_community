@@ -99,4 +99,17 @@ public class BoardService implements IBoardService {
 	public List<BoardVO> getUserBoardList(String board_writer) {
 		return mapper.getUserBoardList(board_writer);
 	}
+	@Override
+	public List<BoardVO> getAllboard() {
+		return mapper.getAllboard();
+	}
+	@Override
+	public List<Integer> getAllTotal() {
+		return mapper.getAllTotal();
+	}
+	@Override
+	public List<HashMap<String, Object>> admin_findDate(String date1, String date2) {
+
+		return mapper.admin_findDate(date1, date2);
+	}
 }

@@ -1,7 +1,10 @@
 package com.community.shy.board.controller;
 
+import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,8 +43,9 @@ public class AdminController {
 	}
 	
 	@GetMapping("/admin_boardList")
-	public void mainList() {
+	public void mainList(Model model) {
 		System.out.println("어드민메인 게시판 리스트");
+		model.addAttribute("allBoard", service.getAllboard());
 	}
 	
 	// 어드민 회원 관리
@@ -97,6 +101,32 @@ public class AdminController {
 		System.out.println("open! user sign failId Id ajax!");
 		UserService.failed(id);
 	}
-
 	
+	@ResponseBody
+	@PostMapping("/deleteBoard")
+	public void deleteBoard(int board_no) {
+		System.out.println("삭제할 게시물 : " + board_no);
+		service.JBoardDelete(board_no);
+	}
+	
+	@GetMapping("/admin_dataTotal")
+	public void admin_dataTotal(Model model) {
+		model.addAttribute("allTotal", service.getAllTotal());
+	}
+	
+	@ResponseBody
+	@PostMapping("/findDate")
+	public List<HashMap<String, Object>> admin_findDate(String date1 , String date2) {
+		System.out.println(date1);
+		System.out.println(date2);
+		List<HashMap<String, Object>> list = service.admin_findDate(date1, date2);
+		System.out.println(service.admin_findDate(date1, date2));
+		return list;
+	}
+	
+	@ResponseBody
+	@PostMapping("/dropId")
+	public void dropID(String id) {
+		UserService.dropUser(id);
+	}
 }

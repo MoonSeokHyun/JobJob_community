@@ -1,6 +1,7 @@
 package com.community.shy.board.JobBoard.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.community.shy.board.command.BoardVO;
@@ -35,4 +36,10 @@ public interface IBoardService {
 	List<BoardVO> getAdminList();
 	//어드민용 유저게시판 정보 
 	List<BoardVO> getUserBoardList(String board_writer);
+	//전체 페이지
+	List<BoardVO> getAllboard();
+	//어드민 데이터보여주긔 
+	List<Integer> getAllTotal();
+	//어드민 날자 조회 
+	List<HashMap<String, Object>> admin_findDate(String date1 , String date2);
 }

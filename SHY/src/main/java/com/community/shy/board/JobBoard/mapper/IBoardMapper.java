@@ -1,5 +1,6 @@
 package com.community.shy.board.JobBoard.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,4 +37,9 @@ public interface IBoardMapper {
 	List<BoardVO> getAdminList();
 	//어드민용 유저게시판 정보 
 	List<BoardVO> getUserBoardList(String board_writer);
+	//전체 페이지
+	List<BoardVO> getAllboard();
+	//어드민 데이터보여주긔 
+	List<Integer> getAllTotal();
+	List<HashMap<String, Object>> admin_findDate(@Param("date1") String date1 ,@Param("date2") String date2);
 }

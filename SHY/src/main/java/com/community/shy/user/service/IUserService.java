@@ -41,4 +41,6 @@ public interface IUserService {
 	
 	// 가입 거절
 	void failed(String id);
+	// 유저 드롭
+	void dropUser(String id);
 }

@@ -102,6 +102,15 @@ public class UserController {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		System.out.println(encoder.toString());
 		UserVO dbData = service.getInfo(vo.getUserId());
+		// 2022 03 27 석현 추가 
+		if(dbData.getUserPass() == 0) {
+			return "wait";
+		}else if(dbData.getUserPass() == 2){
+			return "refusal";
+		}else if(dbData.getUserPass() == 3){
+			return "drop";
+		}
+		
 		if(dbData != null) {
 			if(encoder.matches(vo.getUserPw(), dbData.getUserPw())) {
 				//로그인 성공 회원을 대상으로 세션 정보를 생성

@@ -19,28 +19,23 @@ public class UserAuthHandler implements HandlerInterceptor{
 public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 		ModelAndView modelAndView) throws Exception {
 
-	System.out.println("login interceptor on!");
-	HttpSession session = request.getSession();
-	UserVO vo = (UserVO) session.getAttribute("login");
-	System.out.println(vo);
-
-	response.setContentType("text/html; charset=UTF-8");
-	PrintWriter out = response.getWriter();
-	
-	// 0 가입대기 , 1.가입승인, 2. 가입거절
-	if(vo.getUserPass() == 0) {
-		System.out.println("가입 대기중 입니다.");
-
-	}else if(vo.getUserPass() == 1) {
-		System.out.println("가입 승인 상태 로그인 허용");
-	}else if(vo.getUserPass() == 2) {
-		System.out.println("가입 거절 로그인 불가");
-		PrintWriter out1 = response.getWriter();
-		out1.print("<script>alert('가입 거절 되었습니다. 자세한 문의는 관리자에게 해주세요.'); history.back();</script>");
-		out1.flush();
-		session.invalidate();
-	}
-	
+//	System.out.println("login interceptor on!");
+//	HttpSession session = request.getSession();
+//	UserVO vo = (UserVO) session.getAttribute("login");
+//	System.out.println(vo);
+//	response.setContentType("text/html; charset=UTF-8");
+//	PrintWriter out = response.getWriter();
+//	
+//	// 0 가입대기 , 1.가입승인, 2. 가입거절
+//	if(vo.getUserPass() == 0) {
+//		System.out.println("가입 대기중 입니다.");
+//	}else if(vo.getUserPass() == 1) {
+//		System.out.println("가입 승인 상태 로그인 허용");
+//	}else if(vo.getUserPass() == 2) {
+//		System.out.println("가입 거절 로그인 불가");
+//		session.invalidate();
+//	}
+//	
 }
 
 

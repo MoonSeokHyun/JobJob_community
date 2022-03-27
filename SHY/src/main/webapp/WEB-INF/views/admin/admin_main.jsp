@@ -105,23 +105,7 @@
      <%@include file = "../admin_include/admin_header.jsp" %>
     <div class="table-box">
         <div class="ad-table alarm">
-            <p><a href="">공지사항</a></p>
-            <table class="atable alarm-table">
-                <thead>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                </thead>
-                <tbody>
-                <c:forEach var="vo" items="${boardList}">
-                    <tr>
-                        <td><a class="alarm-btn" href="123">${vo.board_title}</a></td>
-                        <td>${vo.board_writer}</td>
-                        <td>${vo.board_regdate}</td>
-                    </tr>
-                   </c:forEach>
-                </tbody>
-                
+          
             </table>
         </div>
 

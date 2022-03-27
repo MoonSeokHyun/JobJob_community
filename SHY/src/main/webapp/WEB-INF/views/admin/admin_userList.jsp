@@ -9,8 +9,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+	<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="../resources/css/admin_user.css">
     <title>어드민 회원관리</title>
+    <script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+	integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+	integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   </head>
 
@@ -26,21 +36,11 @@
       <nav></nav>
 
 
-      <!-- 이름 & 아이디로 서치 -->
-      <form>
-        <div class="search_keyword search-container">
-          <select class="search-option" name="condition">
 
-          </select>
-          <input type="text" class="search-input" placeholder="검색" name="search" size="10">
-          <button type="submit" class="search_onclick_submit">검색</button>
-        </div>
 
-      </form>
-
-      <div class="member_list">
-        <table class="admin_board_wrap">
-          <tbody class="admin_boardList">
+      <div class="member_list" >
+        <table class="admin_board_wrap" id="user-admin">
+          <thead class="admin_boardList">
             <th class="admin_board_head">이름</th>
             <th class="admin_board_head">아이디</th>
             <th class="admin_board_head">현재상태</th>
@@ -48,7 +48,7 @@
             <th class="admin_board_head">게시글수</th>
             <th class="admin_board_head">댓글수</th>
             <th class="admin_board_head">가입승인</th>
-          </tbody>
+          </thead>
           <tbody>
           <c:forEach var="vo" items="${userInfo}">
             <tr class="admin_board_content">
@@ -63,27 +63,31 @@
               <td class="admin_board_content_nm">${vo.userDate}</td>
               <td class="admin_board_content_nm"><a href="#" class="modal_boardList_admin" data-user-id ="${vo.userId}">${vo.boardCnt}</a></td>
               <td class="admin_board_content_nm"><a href="#" class="modal_reply_admin" data-user-id ="${vo.userId}">${vo.commentCnt}</a></td>
-              <td class="admin_board_content_nm">
-                <button data-user-id ="${vo.userId}" type="button" value="승인" class="appro">승인 </button>
-                <button data-user-id ="${vo.userId}" type="button" value="거부" class="deni">거부</button>
-              </td>
+			  <c:choose>
+			  	<c:when test="${vo.userPass == 0}">
+			  	<td class="admin_board_content_nm">
+	                <button data-user-id ="${vo.userId}" type="button" value="승인" class="appro">승인 </button>
+	                <button data-user-id ="${vo.userId}" type="button" value="거부" class="deni">거부</button>
+                </td>
+			  	</c:when>
+			  	<c:when test="${vo.userPass == 1}">
+			  	<td class="admin_board_content_nm">
+	                <button data-user-id ="${vo.userId}" type="button" value="승인" class="userDrop">회원 추방</button>
+                </td>
+			  	</c:when>
+			  	<c:when test="${vo.userPass == 3}">
+			  	 	<td>추방회원</td>
+			  	</c:when>
+			  	<c:when test="${vo.userPass == 2 }">
+			  		<td>승인거절회원</td>
+			  	</c:when>
+			  </c:choose>
             </tr>
             </c:forEach>
           </tbody>
         </table>
 
-        <!-- 페이징 버튼 -->
-        <s_paging>
-          <div id="paging">
-            <br>
-            <a href="#" class="prev" title="이전페이지">◀ PREV </a>
-            <s_paging_rep><a href="#" class="num">1</a></s_paging_rep>
-            <s_paging_rep><a href="#" class="num">2</a></s_paging_rep>
-            <s_paging_rep><a href="#" class="num">3</a></s_paging_rep>
-            <a href="#" class="prev" title="다음페이지">NEXT ▶</a>
-            <br />&nbsp;
-          </div>
-        </s_paging>
+
       </div>
     </div>
 
@@ -125,31 +129,21 @@
           <div class="modal_wrap">
             <h3 id="ListName"></h3>
             <p class="modallist">작성한 게시글 수 : 총 01개</p>
-            <table class="admin_boardM_wrap">
-              <tbody class="admin_boardMList">
+            <table class="admin_boardM_wrap" id="comment-admin">
+              <thead class="admin_boardMList">
                 <th class="admin_boardM_title">글 번호</th>
                 <th class="admin_boardM_title">글 제목</th>
                 <th class="admin_boardM_title boardleng">작성일</th>
                 <th class="admin_boardM_title">조회수</th>
                 <th class="admin_boardM_title">좋아요</th>
-              </tbody>
+              </thead>
               </tbody>
               <tbody id="getBoardList">
 				<!-- 게시글이 들어갈 공간 -->
               </tbody>
             </table>
-            <!-- 모달 페이징 -->
-            <s_paging>
-              <div id="pagingM">
-                <br>
-                <a href="#" class="prev" title="이전페이지">◀ PREV </a>
-                <s_paging_rep><a href="#" class="num">1</a></s_paging_rep>
-                <s_paging_rep><a href="#" class="num">2</a></s_paging_rep>
-                <s_paging_rep><a href="#" class="num">3</a></s_paging_rep>
-                <a href="#" class="prev" title="다음페이지">NEXT ▶</a>
-                <br />&nbsp;
-              </div>
-            </s_paging>
+
+           
             <div class="close_modal_btn">
               <button class="modal_list_end_btn">닫기</button>
             </div>
@@ -164,7 +158,6 @@
           <div class="modal_wrap">
             <div>
               <h3 id="comment_name"></h3>
-              <p class="modallist">작성한 글 댓글수 : 총 01개</p>
             </div>
 
             <table class="admin_reply_wrap">
@@ -251,11 +244,12 @@
 
     <script>
 
-
-
+    
+    
       let str = '';
       // 모달 스크립트 
       $(function () {
+    	  $("#user-admin").DataTable();
         // 게시판 모달
         $('.modal_boardList_admin').click(function () {
         	var board_id = $(this).data("userId");
@@ -280,16 +274,17 @@
         		dataType : "json",
         		success : function(data) {
 					for(var i = 1 in data){
-						console.log(data[i].board_no);
-						str += "<tr class='admin_boardM_content'>"+data[i].board_title+"<td>"
-						str += "<td class='admin_boardM_nm'><a href='#'>"+data[i].board_no+"</a></td>"
-						str += "<td class='admin_boardM_nm'><a href='#'>"+data[i].board_no+"</a></td>"
+						console.log(data[i].board_title);
+						str += "<tr class='admin_boardM_content'>"+data[i].board_no+"<td>"
+						str += "<td class='admin_boardM_nm'><a href='#'>"+data[i].board_title+"</a></td>"
+						str += "<td class='admin_boardM_nm'><a href='#'>"+data[i].board_regdate+"</a></td>"
 						str += "<td class='admin_boardM_nm'>"+data[i].board_hit+"</td>"
 						str += "<td class='admin_boardM_nm'>"+data[i].board_like+"</td>"
 						str += "</tr>"
 					}
 					$('#ListName').html(board_id + '님의 작성 게시물')
 					$('#getBoardList').html(str); 
+					$("#comment-admin").DataTable();
 				},error : function(status, error) {
 					console.log('에러발생!!');
 					console.log(status, error);
@@ -335,9 +330,11 @@
 		                str += " <td class='admin_reply_con'>"+data[i].com_regdate+"</td>"
 		                str += " </tr>"
 					}
-					
 					$('#commentList_box').html(str);
 					$('#comment_name').html(comment_id +'님의 작성 댓글 ')
+				
+					
+					
 				},error : function(status, error) {
 					console.log('에러발생!!');
 					
@@ -472,4 +469,25 @@
         console.log('회원가입거부!');
         // 가입승인 거부됨 메일전송 서비스 만들면 좋을듯
       });
+      
+      $('.userDrop').click(function() {
+		
+    	  const dropId = $(this).data("userId");
+        	console.log(dropId);
+           	$.ajax({
+        		type : 'post',
+        		url : '<c:url value="/admin/dropId" />',
+        		data : {
+            		id : dropId,
+            	},
+            	success : function(data){
+            	},error : function(status, error) {
+      				console.log('에러발생!!');
+      				
+      				console.log(status, error);
+      			}
+  		}); //end ajax
+
+
+	  });// end user Drop
     </script>

@@ -132,5 +132,10 @@
 		SET user_pass = 2
 		WHERE user_id = #{id}
 	</update>
-
+	<!-- 회원 드롭 -->
+		<update id="dropUser">
+		UPDATE user_info
+		SET user_pass = 3
+		WHERE user_id = #{id}
+	</update>
 </mapper>

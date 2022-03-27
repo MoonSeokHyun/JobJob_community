@@ -160,6 +160,7 @@
 
   nav {
     width: 1200px;
+    height : 50px;
     margin: 0 auto;
     font-size: 17px;
   }
@@ -463,9 +464,10 @@
       </div>
 
       <ul class="clearfix header">
-        <li><a href="#"> 공지 사항</a> </li>
+        <li><a href="<c:url value ='/admin/admin_main'/>">메인페이지</a> </li>
         <li><a href="<c:url value='/admin/admin_userList'/>"> 회원 관리</a> </li>
         <li><a href="<c:url value='/admin/admin_boardList'/>"> 게시판 관리</a> </li>
+        <li><a href="<c:url value='/admin/admin_dataTotal'/>"> 데이터 요약</a> </li>
       </ul>
 
       <div class="login">

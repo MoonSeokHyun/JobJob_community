@@ -77,7 +77,7 @@
 	
 	<!-- 삭제 -->
 	<update id="JBoardDelete">
-		update job_board set board_type = 99 where board_no = #{board_no}
+		update job_board set board_type = 16 where board_no = #{board_no}
 	</update>
 	
 	<!-- 게시물 수정 -->
@@ -105,10 +105,27 @@
 	
 		<select id="getUserBoardList" resultType="com.community.shy.board.command.BoardVO">
 			select * from job_board where board_writer = #{board_writer}
-		<![CDATA[
-		and ROWNUM <=10
-		]]>	
 		</select>
+		
+	<!-- 어드민 전체 게시판 -->
+	
+	<select id="getAllboard"  resultType="com.community.shy.board.command.BoardVO" >
+		select * from job_board
+	</select>
+	
+	<!-- 어드민 게시판 토탈 -->
+	<select id="getAllTotal" resultType="com.community.shy.board.command.BoardVO">
+	select board_type,count(board_type)as count from job_board where board_regdate
+	BETWEEN TO_DATE('03/08/1980', 'MM-DD-YY') and TO_DATE('03/31/2099', 'MM-DD-YY') 
+	GROUP by board_type
+	</select>
+	
+	<!-- 날자 조회 -->
+	<select id="admin_findDate" resultType="hashmap">
+	select board_type,count(board_type)as count from job_board where board_regdate
+	BETWEEN TO_DATE(#{date1}, 'MM-DD-YY') and TO_DATE(#{date2}, 'MM-DD-YY') 
+	GROUP by board_type
+	</select>
   </mapper>
   
   

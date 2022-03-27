@@ -477,7 +477,7 @@
 		</div>
 		<div class="aside_view">
 			<c:choose>
-				<c:when test="${login==null }">
+				<c:when test="${login==null}">
 
 					<div class="info">
 						<div class="id">
@@ -520,7 +520,6 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-
 
 
 		  <div class="list_title_box">게시판 리스트</div>
@@ -759,7 +758,13 @@
 				} else if (data === 'pwFail'){
 					alert('비밀번호가 틀렸습니다');
 					console.log('db에 존재하는 회원, 비번틀림');
-				} else {
+				} else if (data === 'wait'){
+					alert('가입 승인 중 입니다. 잠시만 기다려 주세요');
+				}else if (data === "refusal"){
+					alert('가입이 거절 되었습니다.')
+				}else if(data === "drop"){
+					alert(userId+'님은 로그인 제제 상태입니다. 관리자에게 문의 해주세요.')
+				}else {
 					alert(userId+'님 반갑습니다.');
 					console.log('db에 존재하는 회원, 로긘 성공');
 					location.href='/SHY/';
