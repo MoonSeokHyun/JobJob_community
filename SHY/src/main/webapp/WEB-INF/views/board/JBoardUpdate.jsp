@@ -347,10 +347,6 @@
                         <div class="inner_box1">
                             <span>글번호 : </span>
                             <span>&nbsp; ${board_no} </span>
-                            <div class="hit_box">
-                                <span>Hit : </span>
-                                <span>&nbsp; ${boardUpdate.board_hit}</span>
-                            </div>
                         </div>
                         
                         <div class="title_box">
@@ -369,7 +365,7 @@
                              <span id="img-url"></span>
                         </div>
 							
- 							<div id="contnet">
+ 							<div id="contnet" style="width:745px;">
                         	<input type="hidden"  id="board_content"/>
                             <textarea  id="content" name="board_content"
                                       rows="20" cols="10"  
@@ -378,7 +374,7 @@
 						
 						<input type="hidden" name="board_type" value="${board_type}">
         				<input type="hidden" name="board_no" value="${board_no}">
-
+						</div>
                     </form>
                 </div>
             

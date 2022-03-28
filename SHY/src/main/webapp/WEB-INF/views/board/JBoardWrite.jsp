@@ -17,6 +17,10 @@
 </head>
 
 <style>
+	input {
+		border-radius: 5px;
+	}
+
     .con{
         width: 1200px;
         height: 1000px;
@@ -183,8 +187,12 @@
        max-width: 750px;
    }
    .ck-editor__editable {
-       min-height: 400px;
+       min-height: 280px;
    }
+   .ck-editor__editable-inline {
+       min-height: 500px;
+   }
+   
 
     .myButton3 {
    box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -322,11 +330,11 @@
                         </div>
                         <div class="title_box">
                             <span> 제&nbsp;&nbsp;&nbsp;&nbsp;목 : &nbsp;&nbsp;&nbsp; </span>
-                            <input type="text" name="board_title" id="" class="title" > 
+                            <input type="text" name="board_title" id="title" class="title" style="width:600px;"> 
                         </div>
                         <div class="writer_box">
-                            <span> 작성자 : &nbsp;&nbsp;&nbsp;  </span>
-                            <input class="writer" type="text" name="board_writer" id=""  value="${login.userId}" readonly></input>
+                            <span> 작성자 : &nbsp;&nbsp;&nbsp;  <%-- ${login.userId} --%></span>
+                            <input class="writer" type="text" name="board_writer" id=""  value="${login.userId}" readonly style="border:none;"></input> 
                         </div>
                         <div class="writer_box">
                             <span>이미지 등록하기</span>
@@ -336,22 +344,22 @@
                         </div>
                     
 
-                        <div id="contnet">
+                        <div id="contnet" style="width:745px;">
                         	<input type="hidden" name="board_content" id="board_content"/>
                             <textarea name="content" id="content" 
                                       rows="20" cols="10"  
                                       placeholder="내용을 입력해주세요"
-                                      style="width: 800px">
+                            >
                                       
                                       </textarea>
 
                              <!-- 첨부파일(이미지파일만 업로드가능) -->
-                             <input type="file" id="u_file" name="u_file">
+                             <!-- <input type="file" id="u_file" name="u_file"> -->
 
                               <!-- 이미지 미리보기 영역 -->
-                            <div id="imgViewArea" style="margin-top:10px; display:none;">
+                            <!-- <div id="imgViewArea" style="margin-top:10px; display:none;">
                                 <img id="imgArea" style="width:100px; height:50px;" onerror="imgAreaError()"/>
-                            </div>
+                            </div> -->
         
                                 <input type="hidden" name="board_type" value="${type}">	
 
@@ -425,6 +433,14 @@
     
     // 글 작성 
     $('#Regist_btn').click(function() {
+    	if($("#title").val() === '') {
+    		alert('제목을 입력하세요');
+    		return;
+    	}
+    	/* else if( === '') {
+    		alert('내용을 입력하세요');
+    		return;
+    	} */
     		
     	$("#board_content").val(CKEDITOR.instances.content.getData());
   

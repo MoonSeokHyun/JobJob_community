@@ -20,5 +20,4 @@ public class CommentVO {
 	private int com_type;
 	private Timestamp com_regdate;
 	private int com_bno;
-
 }

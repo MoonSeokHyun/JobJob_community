@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.community.shy.user.UserVO;
 
@@ -51,18 +50,6 @@ public class BoardAuthHandler implements HandlerInterceptor {
 	
 	
 	
-	//postHandle은 컨트롤러를 나갈 때 공통 처리해야 할 내용을 작성
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-		
-		System.out.println("게시판 인터셉터의 postHandle 호출!");
-		System.out.println("모델 객체의 내부 : " + modelAndView.getModel());
-		
-		Object data = modelAndView.getModel().get("article");
-		System.out.println("article이라는 이름의 데이터 : " + data);
-		
-	}
 	
 	
 	

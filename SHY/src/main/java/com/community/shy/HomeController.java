@@ -65,6 +65,10 @@ public class HomeController {
 		
 		
 //		베스트는 추후 좋아요 기능 나오면 할거임.
+		ArrayList board_best = new ArrayList();
+		
+		model.addAttribute("board_best", service.getBest(board_best));
+		
 		
 		
 //		취업정보

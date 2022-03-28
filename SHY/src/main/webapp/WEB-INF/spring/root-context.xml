@@ -37,7 +37,8 @@
    <mybatis-spring:scan base-package="com.community.shy.user.mapper"/>
    <mybatis-spring:scan base-package="com.community.shy.board.JobBoard.mapper" />
    <mybatis-spring:scan base-package="com.community.shy.board.JobComment.mapper" />
-   <mybatis-spring:scan base-package="com.community.shy.img.mapper" />
+   <mybatis-spring:scan base-package="com.community.shy.img.mapper"/>
+   <mybatis-spring:scan base-package="com.community.shy.note.mapper"/>
    
      
 </beans>

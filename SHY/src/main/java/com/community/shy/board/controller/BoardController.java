@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -75,13 +77,29 @@ public class BoardController {
 //		return "redirect:/board/JBoardList?board_type="+ vo.getBoard_type(); 
 //	}
 	
+	/*
+	 * @GetMapping("/JBoardDetail") public void JBoardDetail(int board_no, int
+	 * board_type ,BoardVO vo, Model model) {
+	 * System.out.println(board_no+"번 게시물 타입은 "+ board_type);
+	 * model.addAttribute("board_no", board_no);
+	 * model.addAttribute("board_type",board_type);
+	 * model.addAttribute("boardDetail", service.JBoardDetail(board_no,
+	 * board_type)); }
+	 */
+	
+	
 	@GetMapping("/JBoardDetail")
-	public void JBoardDetail(int board_no, int board_type , Model model) {
+	public void JBoardDetail(@RequestParam("board_no")int board_no, int board_type , Model model, HttpSession session) {
 		System.out.println(board_no+"번 게시물 타입은 "+ board_type);
+		String user_id = ((UserVO)session.getAttribute("login")).getUserId();
+		System.out.println(user_id);
+		service.updateHit(board_no);
 		model.addAttribute("board_no", board_no);
 		model.addAttribute("board_type",board_type);
-		model.addAttribute("boardDetail", service.JBoardDetail(board_no, board_type));
+		model.addAttribute("boardDetail", service.JBoardDetail(board_no, board_type, user_id));
 	}
+	
+
 	
 //	삭제기능 (type 99 삭제)
 	@GetMapping("/JBoardDelete")
@@ -94,12 +112,12 @@ public class BoardController {
 	
 //	게시물 수정
 	@GetMapping("/JBoardUpdate")
-	public void JBoardUpdate(int board_no, int board_type, Model model,RedirectAttributes ra) {
+	public void JBoardUpdate(int board_no, int board_type, Model model,RedirectAttributes ra, HttpSession session) {
 		System.out.println(board_no+"번 게시물 수정페이지로 이동");
-		model.addAttribute("boardUpdate",service.JBoardDetail(board_no, board_type));
+		String user_id = ((UserVO)session.getAttribute("login")).getUserId();
+		model.addAttribute("boardUpdate",service.JBoardDetail(board_no, board_type, user_id));
 		model.addAttribute("board_no",board_no);
 		model.addAttribute("board_type",board_type);
-		System.out.println(service.JBoardDetail(board_no, board_type));
 
 	}
 	
@@ -136,6 +154,36 @@ public class BoardController {
 		model.addAttribute("userBoard", service.myRecord(board_writer));
 		System.out.println(service.myRecord(board_writer));
 	}
+	
+	
+	//좋아요,싫어요
+		@ResponseBody
+		@PostMapping("/likeHateCnt")
+		public String likeHateCnt(HttpSession session, @RequestParam Map<String, Object> param){
+			String like_hate = "";
+			
+			try {
+				String org_like_hate = (String) param.get("org_like_hate");
+				String ck_like_hate = (String) param.get("ck_like_hate");
+
+				if(org_like_hate.equals(ck_like_hate)) { 
+					like_hate ="no_chk"; 
+				} else { 
+					like_hate = ck_like_hate; 
+				}
+				param.put("user_id", ((UserVO)session.getAttribute("login")).getUserId());
+				param.put("like_hate", like_hate);
+				System.out.println("param"+param);
+				service.insertBoardCnt(param);
+				
+			}catch (Exception e) {
+				System.out.println(e.getMessage());
+				like_hate = "error";
+			}
+
+			 
+			return like_hate;
+		}
 	
 	
 

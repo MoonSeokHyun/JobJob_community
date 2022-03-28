@@ -63,6 +63,10 @@
 	text-align: center;
 	padding: 20px;
 }
+.my_info p {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
 
 .search {
 	margin-top: 15px;
@@ -432,6 +436,9 @@
 .aside_view input {
 	width: 100px;
 }
+.boardlist td, .boardlist th {
+	width: 60px;
+}
 
 </style>
 </head>
@@ -477,7 +484,7 @@
 		</div>
 		<div class="aside_view">
 			<c:choose>
-				<c:when test="${login==null}">
+				<c:when test="${login==null }">
 
 					<div class="info">
 						<div class="id">
@@ -495,31 +502,45 @@
 				</c:when>
 				<c:otherwise>
 					<!-- 나중에 if로 세션 비교해서 해줄것! -->
-
+					<c:if test="${login.userId ne 'master' }">
 					<div class="my_info">
 						<a href="<c:url value='/user/mypage' />"><h2>내 정보</h2></a>
 
-						<span>로그인 날짜 : ${login.userDate}</span>
-						<p>${login.userName}님 환영 합니다</p>
+						
+						<p>${login.userId}님 환영 합니다</p>
 						<span> <a class="logout_btn" href="<c:url value='/user/logout' />" onclick="return confirm('로그아웃을 진행하시겠습니까?')">로그아웃</a></span>
 	           </div>
 					<div class="aside_menu">
 						<h2>
-							<a href="<c:url value='/user/myRecord' />">쪽지</a>
+							<a href="<c:url value='/note/myRecord?note_to=${login.userId}' />">쪽지</a>
 						</h2>
 						<h2>
-							<a href=<c:url value='/board/myRecord?board_writer=${login.userId}' />>내가 쓴글</a>
+							<a href="<c:url value='/board/myRecord?board_writer=${login.userId}' />">내가 쓴글</a>
 						</h2>
 						<h2>
-							<a href=<c:url value='/user/myRecord' />>내 쓴 댓글</a>
+							<a href="<c:url value='/comment/myRecord?com_writer=${login.userId}' />">내가 쓴 댓글</a>
 						</h2>
 						<h2>
-							<a href=<c:url value='/user/myRecord' />>스크랩</a>
+							<a href="<c:url value='/scrap/myRecord?uses_Id=${login.userId}' />">스크랩</a>
 						</h2>
 					</div>
+					</c:if>
+					
+					<c:if test="${login.userId eq 'master' }">
+					<div class="my_info">
+						<a href="<c:url value='/admin/admin_main' />">
+							<h2>어드민 페이지</h2>
+						</a>
+
+						
+						<p>${login.userName}님 환영 합니다</p>
+						<span> <a class="logout_btn" href="<c:url value='/user/logout' />" onclick="return confirm('로그아웃을 진행하시겠습니까?')">로그아웃</a></span>
+						</div>
+						</c:if>
 				</c:otherwise>
 			</c:choose>
 		</div>
+
 
 
 		  <div class="list_title_box">게시판 리스트</div>
@@ -573,24 +594,16 @@
             <div class="list_box4">
               <div class="box_main_title">베스트</div>
               <table class="boardlist">
+              <tr>
                 <th>제목</th>
-                <th>내용</th>
+                <th>시간</th>
+               </tr>
+               <c:forEach var="best" items="${board_best}">
                 <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
+                  <td><a href="<c:url value='/board/JBoardDetail?board_no=${best.board_no}&board_type=${best.board_type}' />">${best.board_title}</a></td>
+                  <td><fmt:formatDate value="${best.board_regdate}" pattern="yy/MM/dd"/> </td>
                 </tr>
-                <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
-                </tr>
-                <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
-                </tr>
-                <tr>
-                  <td>첫번쨰 게시글</td>
-                  <td>5분전 게시 </td>
-                </tr>
+                </c:forEach>
               </table>
             </div>
           </div>
@@ -603,7 +616,7 @@
     <section class="study_box">
         <div class="job_info_box">
           <div class="job_info_box_inner">
-            <div class="job_info_box_title">취업 정보</div>
+            <div class="job_info_box_title">취업</div>
             <table class="job_info_table">
             <tr>
               <th>제목</th>
@@ -616,12 +629,12 @@
 					</tr>
 			</c:forEach>
             </table>
-            <a href="#" class="myButton2">Click Me</a>
+            <a href="<c:url value='/board/JBoardList?board_type=13'/>" class="myButton2">Click Me</a>
           </div>
         </div>
         <div class="job_info_box">
           <div class="job_info_box_inner">
-            <div class="job_info_box_title">스터디</div>
+            <div class="job_info_box_title">자격증</div>
             <table class="job_info_table">
             <tr>
               <th>제목</th>
@@ -634,12 +647,12 @@
 					</tr>
 			</c:forEach>
             </table>
-            <a href="#" class="myButton2">Click Me</a>
+            <a href="<c:url value='/board/JBoardList?board_type=14'/>" class="myButton2">Click Me</a>
           </div>
         </div>
         <div class="job_info_box">
           <div class="job_info_box_inner">
-            <div class="job_info_box_title">알쓸신잡</div>
+            <div class="job_info_box_title">자소서</div>
             <table class="job_info_table">
             <tr>
               <th>제목</th>
@@ -652,7 +665,7 @@
 					</tr>
 			</c:forEach>
             </table>
-            <a href="#" class="myButton2">Click Me</a>
+            <a href="<c:url value='/board/JBoardList?board_type=15'/>" class="myButton2">Click Me</a>
           </div>
         </div>
     </section>
@@ -723,7 +736,7 @@
     const userInfo = {"userId":userId, "userPw":userPw}
     
     // 메인 로그인 페이지 빈값확인
-    $('.aside_login_btn').click(function(){
+      $('.aside_login_btn').click(function(){
         if($('.asideId').val() === ''){
             alert('아이디를 입력하세요.');        
             console.log('아이디를 입력하세요.');

@@ -107,10 +107,10 @@
 
     </section>
         <div class="record_list">
-            <a href="<c:url value='/user/myActivity' />" class="record_list_1">작성글</a>
-            <a href="#" class="record_list_2">작성댓글</a>
-            <a href="#" class="record_list_3">스크랩</a>
-            <a href="#" class="record_list_4">좋아요한 글</a>
+           <a href="<c:url value='/board/myRecord?board_writer=${login.userId}' />" class="record_list_1">작성글</a>
+            <a href="<c:url value='/comment/myRecord?com_writer=${login.userId}' />" class="record_list_2">작성댓글</a>
+            <a href="<c:url value='/scrap/myRecord?uses_Id=${login.userId}' />" class="record_list_3">스크랩</a>
+            <a href="<c:url value='/note/myRecord?note_to=${login.userId}' />" class="record_list_4">받은 쪽지</a>
         </div>
         
     <section style="padding-top: 10px; padding-bottom: 100px;">
@@ -131,8 +131,59 @@
 			                    <td class="myRecord_content_nm">
 			                     <fmt:formatDate value="${list.board_regdate}" pattern="yy/MM/dd"/>
 			                  	</td> 
-			                    
-			                    <td class="myRecord_content_nm"><a href="<c:url value='/board/JBoardDetail?board_no=${list.board_no}&board_type=${type}'/>" class="nm_content">${list.board_title}</a></td>
+			                    <td class="myRecord_content_nm">
+			                     	<c:choose>
+						<c:when test="${list.board_type == 1}">
+							<p>사기업게시판</p>
+						</c:when>
+						<c:when test="${list.board_type == 2}">
+							<p>공기업게시판</p>
+						</c:when>
+						<c:when test="${list.board_type == 3}">
+							<p>아시아게시판</p>
+						</c:when>
+						<c:when test="${list.board_type == 4}">
+							<p>유럽게시판</p>
+						</c:when>
+						<c:when test="${list.board_type == 5}">
+							<p>남미게시판</p>
+						</c:when>
+						<c:when test="${list.board_type == 6}">
+							<p>북미게시판</p>
+						</c:when>
+						<c:when test="${list.board_type == 7}">
+							<p>아프리카게시판</p>
+						</c:when>
+						<c:when test="${list.board_type == 8}">
+							<p>국가자격증게시판</p>
+						</c:when>
+						<c:when test="${list.board_type == 9}">
+							<p>민간자격증게시판</p>
+						</c:when>
+						<c:when test="${list.board_type == 10}">
+							<p>어학게시판</p>
+						</c:when>
+						<c:when test="${list.board_type == 11}">
+							<p>자유게시판</p>
+						</c:when>
+						<c:when test="${list.board_type == 12}">
+							<p>취뽀게시판</p>
+						</c:when>
+						<c:when test="${list.board_type == 13}">
+							<p>취업게시판</p>
+						</c:when>
+						<c:when test="${list.board_type == 14}">
+							<p>자격증게시판</p>
+						</c:when>
+						<c:when test="${list.board_type == 15}">
+							<p>자소서게시판</p>
+						</c:when>
+
+
+
+					</c:choose>
+			                  	</td>
+			                    <td class="myRecord_content_nm"><a href="<c:url value='/board/JBoardDetail?board_no=${list.board_no}&board_type=${list.board_type}'/>" class="nm_content">${list.board_title}</a></td>
 			                    
 			                    <td class="myRecord_content_nm">${list.board_hit}</td>
 			                

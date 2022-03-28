@@ -275,9 +275,10 @@
         		success : function(data) {
 					for(var i = 1 in data){
 						console.log(data[i].board_title);
-						str += "<tr class='admin_boardM_content'>"+data[i].board_no+"<td>"
+						str += "<tr class='admin_boardM_content'>"
+						str += "<td class='admin_boardM_nm'><a href='#'>"+data[i].board_no+"</a></td>"
 						str += "<td class='admin_boardM_nm'><a href='#'>"+data[i].board_title+"</a></td>"
-						str += "<td class='admin_boardM_nm'><a href='#'>"+data[i].board_regdate+"</a></td>"
+						str += "<td class='admin_boardM_nm'><a href='#'>"+timeStamp(data[i].board_regdate)+"</a></td>"
 						str += "<td class='admin_boardM_nm'>"+data[i].board_hit+"</td>"
 						str += "<td class='admin_boardM_nm'>"+data[i].board_like+"</td>"
 						str += "</tr>"
@@ -327,7 +328,7 @@
 		                str += "<tr class='admin_reply_content'>"
 		                str += "  <td class='admin_reply_con'><a href='#'>"+data[i].com_no+"</a></td>"
 		                str += " <td class='admin_reply_con'><a href='#'>"+data[i].com_content+"</a></td>"
-		                str += " <td class='admin_reply_con'>"+data[i].com_regdate+"</td>"
+		                str += " <td class='admin_reply_con'>"+timeStamp(data[i].com_regdate)+"</td>"
 		                str += " </tr>"
 					}
 					$('#commentList_box').html(str);
@@ -490,4 +491,31 @@
 
 
 	  });// end user Drop
+	  
+	  function timeStamp(millis) {
+	      
+	      const date = new Date(); //현재 날짜
+	      //현재 날짜를 밀리초로 변환 - 등록일 밀리초 -> 시간차
+	      const gap = date.getTime() - millis;
+	      
+	      let time; //리턴할 시간
+	      if(gap < 60 * 60 * 24 * 1000) { //1일 미만인 경우
+	         if(gap < 60 * 60 * 1000) { //1시간 미만일 경우
+	            time = '방금 전';
+	         } else { //1시간 이상일 경우
+	            time = parseInt(gap / (1000 * 60 * 60)) + '시간 전';
+	         }
+	      } else { //1일 이상일 경우
+	         const today = new Date(millis);
+	         const year = today.getFullYear(); //년
+	         const month = today.getMonth() + 1; //월
+	         const day = today.getDate(); //일
+	         const hour = today.getHours(); //시
+	         const minute = today.getMinutes(); //분
+	         
+	         time = year + '년 ' + month + '월 ' + day + '일 ' + hour + '시 ' + minute + '분'; 
+	         
+	      }
+	      return time;
+	   }
     </script>

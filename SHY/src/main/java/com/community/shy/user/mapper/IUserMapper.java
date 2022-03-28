@@ -32,16 +32,17 @@ public interface IUserMapper {
 	
 	//회원 활동 불러오기
 	UserVO myActivity(String id);
+	
 	//어드민용 유저리스트 
-	List<UserVO> adminUserList();
-	List<UserVO> adminUserList2();
-	
-	// 가입승인
-	void successId(String id);
-	
-	// 가입 거절
-	void failed(String id);
-	
-	// 유저 드롭
-	void dropUser(String id);
+		List<UserVO> adminUserList();
+		List<UserVO> adminUserList2();
+		
+		// 가입승인
+		void successId(String id);
+		
+		// 가입 거절
+		void failed(String id);
+		
+		// 유저 드롭
+		void dropUser(String id);
 }

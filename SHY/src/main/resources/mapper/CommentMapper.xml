@@ -18,10 +18,20 @@
   		select * from job_comment where com_bno = #{com_bno}
   	</select>
   	
-  	
-  	<select id="getComList" resultType="com.community.shy.board.command.CommentVO">
-  		select * from job_comment where com_writer = #{com_writer}
-  	</select>
+  	<select id="myRecord" resultType="com.community.shy.board.command.CommentVO">
+		SELECT * FROM job_comment
+		WHERE com_writer = #{writer}
+	</select>
+	
+	<delete id="commentDelete">
+		DELETE FROM job_comment
+		WHERE com_writer = #{com_writer} AND com_content = #{com_content}
+	</delete>
+	
+	<select id="getComList" resultType="com.community.shy.board.command.CommentVO">
+        select * from job_comment where com_writer = #{com_writer}
+     </select>
+	
   </mapper>
   
   

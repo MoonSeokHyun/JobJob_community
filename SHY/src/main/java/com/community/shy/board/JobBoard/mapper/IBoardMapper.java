@@ -20,6 +20,7 @@ public interface IBoardMapper {
 	void JBoardDelete(int board_no);
 //	상세보기
 	BoardVO JBoardDetail(Map<String, Object> data);
+	
 //	총게시물수
 	int getJTotal(Map<String, Object> data);
 //	타입을 전달할 Vo 객체
@@ -29,17 +30,25 @@ public interface IBoardMapper {
 //	메인용 리스트
 	List<BoardVO> mainBoard(BoardVO vo);
 	List<BoardVO> getJBoardForMain(Map<String, Object> data);
+	List<BoardVO> getBest(List<BoardVO> best);
 	
 	//내가 쓴글 불러오기
 	List<BoardVO> myRecord(String writer);
 	
+//  조회수	
+	boolean updateHit(int board_no);
+//  좋아요,싫어요
+	void insertBoardCnt(Map<String, Object> param);
+	
 	//어드민용 메인페이지
-	List<BoardVO> getAdminList();
-	//어드민용 유저게시판 정보 
-	List<BoardVO> getUserBoardList(String board_writer);
-	//전체 페이지
-	List<BoardVO> getAllboard();
-	//어드민 데이터보여주긔 
-	List<Integer> getAllTotal();
-	List<HashMap<String, Object>> admin_findDate(@Param("date1") String date1 ,@Param("date2") String date2);
+		List<BoardVO> getAdminList();
+		//어드민용 유저게시판 정보 
+		List<BoardVO> getUserBoardList(String board_writer);
+		//전체 페이지
+		List<BoardVO> getAllboard();
+		//어드민 데이터보여주긔 
+		List<Integer> getAllTotal();
+		List<HashMap<String, Object>> admin_findDate(@Param("date1") String date1 ,@Param("date2") String date2);
+	
+	
 }

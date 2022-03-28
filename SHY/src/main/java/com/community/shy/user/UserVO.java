@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.community.shy.board.command.BoardVO;
-import com.community.shy.board.command.CommentVO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,8 +29,10 @@ public class UserVO {
 	private int adminType;
 	private int userPass;
 	private Timestamp userDate;
-	
 	private int boardCnt;
 	private int commentCnt;
+	
+	
+	private List<BoardVO> boardList;
 	
 }

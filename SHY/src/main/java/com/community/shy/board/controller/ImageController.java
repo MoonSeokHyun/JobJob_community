@@ -47,9 +47,9 @@ public class ImageController {
 	private IimgService imgService;
 
 	@GetMapping("/display")
-	public ResponseEntity<byte[]> getFile(int board_no, int board_type) {
+	public ResponseEntity<byte[]> getFile(int board_no, int board_type, String user_id) {
 	
-		BoardVO board = service.JBoardDetail(board_no, board_type);
+		BoardVO board = service.JBoardDetail(board_no, board_type, user_id);
 		
 		String img_path = board.getBoard_img() + "/" + board.getBoard_img_path();
 		
@@ -75,7 +75,7 @@ public class ImageController {
 	
 	@PostMapping("/getImgUrl")
 	@ResponseBody
-	public String getImgUrl(@RequestParam("img_file") MultipartFile file,HttpServletRequest requeset) {
+	public String getImgUrl(@RequestParam("img_file") MultipartFile file, HttpServletRequest requeset) {
 		String imgUrl = "";
 		try { 
 			// 날짜별로 폴더를 생성해서 파일을 관리 
@@ -94,10 +94,10 @@ public class ImageController {
 		
 			//확장자를 추출합니다. 
 			String fileExtentsion = fileRealName.substring(fileRealName.indexOf("."),fileRealName.length());
-			System.out.println("확인용" + imgService.getImgNo());
+
 
 			String fileName = uuids + fileExtentsion;
-			
+
 			// 업로드한 파일을 서버 컴퓨터의 지정한 경로 내에 실제로 저장. 
 			String file_path = uploadPath +"\\" + fileName;
 			
@@ -113,7 +113,7 @@ public class ImageController {
 			file.transferTo(saveFile);
 			
 			imgUrl = requeset.getContextPath()+"/getImg?img_no=" + img.getImg_no();
-
+			
 		} catch (Exception e) { 
 			System.out.println("업로드 중 에러 발생 : " + e.getMessage());
 		}

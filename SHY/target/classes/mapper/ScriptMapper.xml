@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.community.shy.user.mapper.IscriptMapper">
+   <insert id="insertScript">
+      insert into user_scrap
+      (scrap_no,scrap_count,scrap_type,scrap_Id,uses_Id,bno_sc)
+      values(scrap_seq.nextval,0,#{scrap_type},#{scrap_Id},#{uses_Id},#{bno_sc})
+   </insert>
+
+   <!-- 내 스크랩 불러오기 -->
+   <select id="myRecord"
+      resultType="com.community.shy.user.script.scriptVO">
+      SELECT * FROM user_scrap
+      WHERE uses_Id = #{uses_Id}
+   </select>
+
+   <select id="getSTotal" resultType="int">
+      select count(*) from user_scrap
+      where bno_sc = #{bno_sc}
+   </select>
+
+   <!-- 스크랩 취소 -->
+   <delete id="cnxlScript">
+      DELETE user_scrap WHERE scrap_no = #{scrap_no}
+   </delete>
+</mapper>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

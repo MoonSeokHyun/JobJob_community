@@ -4,128 +4,195 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.community.shy.board.JobBoard.mapper.IBoardMapper">
-  	
-  		<sql id="search">
-		<if test="paging.condition == 'board_title'">
-			and board_title LIKE '%'||#{paging.keyword}||'%'
-		</if>	
-		<if test="paging.condition == 'board_content'">
-			and board_content LIKE '%'||#{paging.keyword}||'%'
-		</if>
-		<if test="paging.condition == 'board_writer'">
-			and board_writer LIKE '%'||#{paging.keyword}||'%'
-		</if> 
+     
+        <sql id="search">
+      <if test="paging.condition == 'board_title'">
+         and board_title LIKE '%'||#{paging.keyword}||'%'
+      </if>   
+      <if test="paging.condition == 'board_content'">
+         and board_content LIKE '%'||#{paging.keyword}||'%'
+      </if>
+      <if test="paging.condition == 'board_writer'">
+         and board_writer LIKE '%'||#{paging.keyword}||'%'
+      </if> 
 
-	</sql>
-	
-	<select id="getJBoardForMain" resultType="com.community.shy.board.command.BoardVO" >
-		
-		select * from
-		(
-		SELECT *
-		FROM job_board 
-		where board_type in
-		<foreach collection="board_types" item="type" index="index" separator="," open="(" close=")">
-        	#{type}
-     	</foreach>
-     	ORDER BY Board_no DESC
-		)
-		<![CDATA[where rowNum<=4]]>
-		
-	</select>
-  	
-	<select id="getJBoard" resultType="com.community.shy.board.command.BoardVO" >
-		
-		select * from
-		(
-		select rownum as rn , tbl. * from
-		(
-		SELECT * FROM job_board 
-		where board_type = #{board_type}
-		<include refid="search" />
-		ORDER BY Board_no DESC
-		)tbl
-		)
-		<![CDATA[
-		WHERE rn > (#{paging.pageNum ,jdbcType=VARCHAR} - 1) * #{paging.countPerPage,jdbcType=VARCHAR}
-		AND rn <= #{paging.pageNum,jdbcType=VARCHAR} * #{paging.countPerPage,jdbcType=VARCHAR}
-		]]>
-		
-	</select>
-	
-	<select id="getJTotal" resultType="int" >
-		select count(*) from job_board where board_type = #{board_type} <include refid="search" />
-	</select>
-	
-	<select id="getBoard" resultType="com.community.shy.board.command.BoardVO" >
-		SELECT * FROM job_board where board_type = #{board_type} 
-	</select>
-	
-	<!-- <insert id="BoardJRegist">
-		insert into job_board(board_no,board_title,board_writer,board_content,board_hit,board_like,board_hate,board_type)
-		values(jobBoard_seq.nextval,#{board_title},#{board_writer},#{board_content},0,0,0,#{board_type})
-	</insert> -->
-	<insert id="BoardJRegist">
-		insert into job_board(board_no,board_title,board_writer,board_content,board_hit,board_like,board_hate,board_img,board_img_path,board_type,board_regdate)
-		values(jobBoard_seq.nextval,#{board_title},#{board_writer},#{board_content},0,0,0,#{board_img,jdbcType=VARCHAR},#{board_img_path,jdbcType=VARCHAR},#{board_type},sysdate) 
-	</insert>
-	
-	<!-- 상세보기 -->
-	<select id="JBoardDetail" resultType="com.community.shy.board.command.BoardVO" >
-		select * from job_board where board_type = #{board_type} and board_no = #{board_no} 	
-	</select>
-	
-	<!-- 삭제 -->
-	<update id="JBoardDelete">
-		update job_board set board_type = 16 where board_no = #{board_no}
-	</update>
-	
-	<!-- 게시물 수정 -->
-	<update id="JBoardUpdate">
-		update job_board set board_title=#{board_title},board_writer=#{board_writer},board_content=#{board_content}
-		where board_no = #{board_no} 
-	</update>
-	
-	<!-- 내가 쓴글 불러오기 -->
-	<select id="myRecord" resultType="com.community.shy.board.command.BoardVO">
-		SELECT * FROM job_board
-		WHERE board_writer = #{writer}
-	</select>
-	
-	<!-- 어드민용 -->
-	<select id="getAdminList" resultType="com.community.shy.board.command.BoardVO">
-		SELECT* FROM(SELECT* FROM job_board order by board_no desc ) tbl 
-		<![CDATA[
-		where ROWNUM <=5
-		]]>
-		
-	</select>
-	
-	<!-- 어드민용 유저 게시글 보기 -->
-	
-		<select id="getUserBoardList" resultType="com.community.shy.board.command.BoardVO">
-			select * from job_board where board_writer = #{board_writer}
-		</select>
-		
-	<!-- 어드민 전체 게시판 -->
-	
-	<select id="getAllboard"  resultType="com.community.shy.board.command.BoardVO" >
-		select * from job_board
-	</select>
-	
-	<!-- 어드민 게시판 토탈 -->
-	<select id="getAllTotal" resultType="com.community.shy.board.command.BoardVO">
-	select board_type,count(board_type)as count from job_board where board_regdate
-	BETWEEN TO_DATE('03/08/1980', 'MM-DD-YY') and TO_DATE('03/31/2099', 'MM-DD-YY') 
-	GROUP by board_type
-	</select>
-	
-	<!-- 날자 조회 -->
-	<select id="admin_findDate" resultType="hashmap">
-	select board_type,count(board_type)as count from job_board where board_regdate
-	BETWEEN TO_DATE(#{date1}, 'MM-DD-YY') and TO_DATE(#{date2}, 'MM-DD-YY') 
-	GROUP by board_type
-	</select>
+   </sql>
+   
+   <select id="getJBoardForMain" resultType="com.community.shy.board.command.BoardVO" >
+      
+      select * from
+      (
+      SELECT *
+      FROM job_board 
+      where board_type in
+      <foreach collection="board_types" item="type" index="index" separator="," open="(" close=")">
+           #{type}
+        </foreach>
+        ORDER BY Board_no DESC
+      )
+      <![CDATA[where rowNum<=4]]>
+      
+   </select>
+   
+   <select id="getBest" resultType="com.community.shy.board.command.BoardVO">
+   		SELECT * FROM job_board
+   		<![CDATA[where rowNum<=4]]>
+   		ORDER BY board_like DESC
+   </select>
+     
+   <select id="getJBoard" resultType="com.community.shy.board.command.BoardVO" >
+      
+      select * from
+      (
+      select rownum as rn , tbl. * from
+      (
+      SELECT 
+             BOARD_NO
+            ,BOARD_TITLE
+            ,BOARD_WRITER
+            ,BOARD_CONTENT
+            ,BOARD_HIT
+            ,BOARD_IMG
+            ,BOARD_IMG_PATH
+            ,BOARD_TYPE
+            ,BOARD_REGDATE,
+            (select COUNT(*) FROM board_cnt TT WHERE TT.BOARD_TYPE = BOARD.board_type AND TT.BOARD_NO = BOARD.BOARD_NO AND LIKE_HATE = 'LIKE') AS BOARD_LIKE
+       FROM job_board BOARD
+      where board_type = #{board_type}
+      <include refid="search" />
+      ORDER BY Board_no DESC
+      )tbl
+      )
+      <![CDATA[
+      WHERE rn > (#{paging.pageNum ,jdbcType=VARCHAR} - 1) * #{paging.countPerPage,jdbcType=VARCHAR}
+      AND rn <= #{paging.pageNum,jdbcType=VARCHAR} * #{paging.countPerPage,jdbcType=VARCHAR}
+      ]]>
+      
+   </select>
+
+   
+   <select id="getJTotal" resultType="int" >
+      select count(*) from job_board where board_type = #{board_type} <include refid="search" />
+   </select>
+   
+   <select id="getBoard" resultType="com.community.shy.board.command.BoardVO" >
+      SELECT * FROM job_board where board_type = #{board_type} 
+   </select>
+   
+   <!-- <insert id="BoardJRegist">
+      insert into job_board(board_no,board_title,board_writer,board_content,board_hit,board_like,board_hate,board_type)
+      values(jobBoard_seq.nextval,#{board_title},#{board_writer},#{board_content},0,0,0,#{board_type})
+   </insert> -->
+   <insert id="BoardJRegist">
+      insert into job_board(board_no,board_title,board_writer,board_content,board_hit,board_like,board_hate,board_img,board_img_path,board_type,board_regdate)
+      values(jobBoard_seq.nextval,#{board_title},#{board_writer},#{board_content},0,0,0,#{board_img,jdbcType=VARCHAR},#{board_img_path,jdbcType=VARCHAR},#{board_type},sysdate) 
+   </insert>
+   
+   <!-- 상세보기 -->
+   <select id="JBoardDetail" resultType="com.community.shy.board.command.BoardVO">
+      SELECT 
+             BOARD_NO
+            ,BOARD_TITLE
+            ,BOARD_WRITER
+            ,BOARD_CONTENT
+            ,BOARD_HIT
+            ,BOARD_IMG
+            ,BOARD_IMG_PATH
+            ,BOARD_TYPE
+            ,BOARD_REGDATE
+            ,(select COUNT(*) FROM board_cnt TT WHERE TT.BOARD_TYPE = BOARD.board_type AND TT.BOARD_NO = BOARD.BOARD_NO AND LIKE_HATE = 'LIKE') AS BOARD_LIKE
+            ,(select COUNT(*) FROM board_cnt TT WHERE TT.BOARD_TYPE = BOARD.board_type AND TT.BOARD_NO = BOARD.BOARD_NO AND LIKE_HATE = 'HATE') AS BOARD_HATE
+            ,(select LIKE_HATE FROM board_cnt TT WHERE TT.BOARD_TYPE = BOARD.board_type AND TT.BOARD_NO = BOARD.BOARD_NO AND USER_ID = #{user_id}) AS LIKE_HATE
+            FROM job_board BOARD
+      where board_type = #{board_type}
+        and BOARD_NO = #{board_no}
+   </select>
+
+   
+   <!-- 삭제 -->
+   <update id="JBoardDelete">
+      update job_board set board_type = 99 where board_no = #{board_no}
+   </update>
+   
+   <!-- 게시물 수정 -->
+   <update id="JBoardUpdate">
+      update job_board set board_title=#{board_title},board_writer=#{board_writer},board_content=#{board_content}
+      where board_no = #{board_no} 
+   </update>
+   
+    <!-- 조회수 증가 -->
+   <update id="updateHit" parameterType="int">
+      update job_board 
+      set board_hit = board_hit + 1
+      where board_no = #{board_no}
+      <!-- and board_writer != #{board_writer} -->
+   </update>
+   
+   <!-- 좋아요 싫어요 -->
+   <insert id="insertBoardCnt">
+      MERGE INTO board_cnt
+      USING DUAL 
+      ON (USER_ID = #{user_id} AND BOARD_NO = #{board_no})
+      WHEN MATCHED THEN 
+      UPDATE SET  
+         LIKE_HATE = #{like_hate} 
+      WHEN NOT MATCHED THEN 
+      INSERT(
+         BOARD_NO, 
+         BOARD_TYPE , 
+         USER_ID , 
+         LIKE_HATE
+         ) 
+      VALUES ( 
+         #{board_no}, 
+         #{board_type}, 
+         #{user_id}, 
+         #{like_hate}
+         )
+   </insert>
+   
+   
+   <!-- 내가 쓴글 불러오기 -->
+   <select id="myRecord" resultType="com.community.shy.board.command.BoardVO">
+      SELECT * FROM job_board
+      WHERE board_writer = #{writer}
+   </select>
+   
+   <!-- 어드민용 -->
+   <select id="getAdminList" resultType="com.community.shy.board.command.BoardVO">
+      SELECT* FROM(SELECT* FROM job_board order by board_no desc ) tbl 
+      <![CDATA[
+      where ROWNUM <=5
+      ]]>
+      
+   </select>
+   
+   <!-- 어드민용 유저 게시글 보기 -->
+   
+      <select id="getUserBoardList" resultType="com.community.shy.board.command.BoardVO">
+         select * from job_board where board_writer = #{board_writer}
+      </select>
+      
+   <!-- 어드민 전체 게시판 -->
+   
+   <select id="getAllboard"  resultType="com.community.shy.board.command.BoardVO" >
+      select * from job_board
+   </select>
+   
+   <!-- 어드민 게시판 토탈 -->
+   <select id="getAllTotal" resultType="com.community.shy.board.command.BoardVO">
+   select board_type,count(board_type)as count from job_board where board_regdate
+   BETWEEN TO_DATE('03/08/1980', 'MM-DD-YY') and TO_DATE('03/31/2099', 'MM-DD-YY') 
+   GROUP by board_type
+   </select>
+   
+   <!-- 날자 조회 -->
+   <select id="admin_findDate" resultType="hashmap">
+   select board_type,count(board_type)as count from job_board where board_regdate
+   BETWEEN TO_DATE(#{date1}, 'MM-DD-YY') and TO_DATE(#{date2}, 'MM-DD-YY') 
+   GROUP by board_type
+   </select>
+
   </mapper>
   
   

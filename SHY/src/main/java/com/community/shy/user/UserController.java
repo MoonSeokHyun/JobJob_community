@@ -93,38 +93,38 @@ public class UserController {
 	}
 	
 	//로그인
-	@ResponseBody
-	@PostMapping("/userLogin")
-	public String userLogin(@RequestBody UserVO vo, HttpSession session) {
-		System.out.println("userLogin post");
-		System.out.println("갖고온 param: " + vo.getUserId());
-		
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		System.out.println(encoder.toString());
-		UserVO dbData = service.getInfo(vo.getUserId());
-		// 2022 03 27 석현 추가 
-		if(dbData.getUserPass() == 0) {
-			return "wait";
-		}else if(dbData.getUserPass() == 2){
-			return "refusal";
-		}else if(dbData.getUserPass() == 3){
-			return "drop";
-		}
-		
-		if(dbData != null) {
-			if(encoder.matches(vo.getUserPw(), dbData.getUserPw())) {
-				//로그인 성공 회원을 대상으로 세션 정보를 생성
-				session.setAttribute("login", dbData);
-				return "loginSuccess";
-				
-			} else {
-				return "pwFail";
+		@ResponseBody
+		@PostMapping("/userLogin")
+		public String userLogin(@RequestBody UserVO vo, HttpSession session) {
+			System.out.println("userLogin post");
+			System.out.println("갖고온 param: " + vo.getUserId());
+			
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			System.out.println(encoder.toString());
+			UserVO dbData = service.getInfo(vo.getUserId());
+			// 2022 03 27 석현 추가 
+			if(dbData.getUserPass() == 0) {
+				return "wait";
+			}else if(dbData.getUserPass() == 2){
+				return "refusal";
+			}else if(dbData.getUserPass() == 3){
+				return "drop";
 			}
+			
+			if(dbData != null) {
+				if(encoder.matches(vo.getUserPw(), dbData.getUserPw())) {
+					//로그인 성공 회원을 대상으로 세션 정보를 생성
+					session.setAttribute("login", dbData);
+					return "loginSuccess";
+					
+				} else {
+					return "pwFail";
+				}
 
-		} else {
-			return "idFail";
-		}
-	}//로그인
+			} else {
+				return "idFail";
+			}
+		}//로그인
 		
 		
 	//비밀번호 찾기

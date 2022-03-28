@@ -3,139 +3,143 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.community.shy.user.mapper.IUserMapper">
-	<resultMap type="com.community.shy.user.UserVO" id="UserInfo">
-		<id property="userNo" column="user_no" />
-		<result property="userId" column="user_id" />
-		<result property="userName" column="user_name" />
-		<result property="userPw" column="user_pw" />
-		<result property="userPh" column="user_ph" />
-		<result property="userAdr1" column="user_adr1" />
-		<result property="userAdr2" column="user_adr2" />
-		<result property="userAdr3" column="user_adr3" />
-		<result property="userAdr4" column="user_adr4" />
-		<result property="userStatus" column="user_status" />
-		<result property="userEmail" column="user_email" />
-		<result property="userCompany" column="user_company" />
-		<result property="userType" column="user_type" />
-		<result property="userPass" column="user_pass" />
-		<result property="userDate" column="user_date" />
-<!-- 		<collection property="boardList" resultMap="List" /> -->	
-		<result property="boardCnt" column="board_cnt" />
-		<result property="commentCnt" column="comment_cnt" />
-		
-	</resultMap>
+   <resultMap type="com.community.shy.user.UserVO" id="UserInfo">
+      <id property="userNo" column="user_no" />
+      <result property="userId" column="user_id" />
+      <result property="userName" column="user_name" />
+      <result property="userPw" column="user_pw" />
+      <result property="userPh" column="user_ph" />
+      <result property="userAdr1" column="user_adr1" />
+      <result property="userAdr2" column="user_adr2" />
+      <result property="userAdr3" column="user_adr3" />
+      <result property="userAdr4" column="user_adr4" />
+      <result property="userStatus" column="user_status" />
+      <result property="userEmail" column="user_email" />
+      <result property="userCompany" column="user_company" />
+      <result property="userType" column="user_type" />
+      <result property="userPass" column="user_pass" />
+      <result property="userDate" column="user_date" />
+<!--       <collection property="boardList" resultMap="List" /> -->   
+      <result property="boardCnt" column="board_cnt" />
+      <result property="commentCnt" column="comment_cnt" />
+      
+   </resultMap>
 
-<!-- 	<resultMap type="com.community.shy.board.command.BoardVO"
-		id="List">
-		<id property="board_no" column="board_no" />
-		<result property="board_title" column="board_title" />
-		<result property="board_hit" column="board_hit" />
-		<result property="board_type" column="board_type" />
-		<result property="board_regdate" column="board_regdate" />
-	</resultMap>
+<!--    <resultMap type="com.community.shy.board.command.BoardVO"
+      id="List">
+      <id property="board_no" column="board_no" />
+      <result property="board_title" column="board_title" />
+      <result property="board_hit" column="board_hit" />
+      <result property="board_type" column="board_type" />
+      <result property="board_regdate" column="board_regdate" />
+   </resultMap>
  -->
 
 	<select id="idCheck" resultType="int">
 		SELECT COUNT(*) FROM user_info
 		WHERE user_id = #{id}
 	</select>
-
+	
 	<insert id="join">
 		INSERT INTO user_info
-		(user_no, user_id, user_name,
-		user_pw, user_ph, user_adr1, user_adr2,
-		user_adr3, user_adr4,
-		user_status, user_email, user_company, admin_type,
-		user_pass)
-		VALUES(user_seq.NEXTVAL, #{userId}, #{userName}, #{userPw},
-		#{userPh},
-		#{userAdr1},
-		#{userAdr2}, #{userAdr3}, #{userAdr4},
-		#{userStatus},
-		#{userEmail}, #{userCompany}, #{adminType},
+		(user_no, user_id, user_name, user_pw, user_ph, user_adr1, user_adr2, 
+		user_adr3, user_adr4, user_status, user_email, user_company, admin_type, user_pass)
+		VALUES(user_seq.NEXTVAL, #{userId}, #{userName}, #{userPw}, #{userPh}, #{userAdr1},
+		#{userAdr2}, #{userAdr3}, #{userAdr4}, #{userStatus}, #{userEmail}, #{userCompany}, #{adminType},
 		#{userPass})
 	</insert>
-
-	<select id="getInfo" resultMap="UserInfo">
-		SELECT * FROM user_info
-		WHERE
-		user_id = #{userId}
-	</select>
+	
+	<select id="getInfo" resultMap="UserInfo">SELECT *FROM user_info WHERE user_id = #{id} </select>
 
 	<update id="modifyPw">
 		UPDATE user_info
 		SET user_pw = #{pw}
-		WHERE user_id =
-		#{id}
+		WHERE user_id = #{id}
 	</update>
-
+	
 	<select id="myActivity" resultMap="UserInfo">
 		SELECT * FROM job_board
-		WHERE
-		board_writer = #{id}
+		WHERE board_writer = #{id}
 	</select>
-
+	
 	<!-- 회원정보 수정 -->
 
 
 	<update id="updateUser">
-		UPDATE user_info
-		SET user_pw = #{userPw},
-		user_ph =
-		#{userPh},
-		user_adr1 = #{userAdr1},
-		user_adr2 = #{userAdr2},
-		user_adr3 =
-		#{userAdr3},
-		user_adr4 = #{userAdr4},
-		user_status = #{userStatus}
-		WHERE
-		user_id = #{userId}
+			UPDATE user_info 
+			SET user_pw = #{userPw},
+			user_ph = #{userPh},
+			user_adr1 = #{userAdr1},
+			user_adr2 = #{userAdr2},
+			user_adr3 = #{userAdr3},
+			user_adr4 = #{userAdr4},
+			user_status = #{userStatus}
+			WHERE user_id = #{userId} 
 	</update>
 
-	<!-- 회원삭제 -->
+<!-- 회원삭제 -->
 
 
-	<delete id="deleteUser">DELETE user_infoWHERE user_id = #{userId} </delete>
+<delete id="deleteUser">DELETE user_infoWHERE user_id = #{userId} </delete>
+		
+	
+	 <!--어드민용 메인 -->
+   <select id="adminUserList"
+      resultMap="UserInfo">
+      SELECT * FROM(SELECT * FROM user_info order by user_no desc )  
+      <![CDATA[
+      where ROWNUM <=5 
+      ]]>
+   </select>
 
 
-	<!--어드민용 메인 -->
-	<select id="adminUserList"
-		resultMap="UserInfo">
-		SELECT * FROM(SELECT * FROM user_info order by user_no desc )  
-		<![CDATA[
-		where ROWNUM <=5 
-		]]>
-	</select>
-
-
-	<select id="adminUserList2"
-		resultMap="UserInfo">
-	select u.*,
+   <select id="adminUserList2"
+      resultMap="UserInfo">
+   select u.*,
     (select count(*) from job_board where board_writer = u.user_id) as board_cnt,
     (select count(*) from job_comment where com_writer = u.user_id) as comment_cnt
     
-	from user_info u
-	order by u.user_no desc
+   from user_info u
+   order by u.user_no desc
 
-	</select>
+   </select>
+   
+   <!-- 가입 승인 -->
+   <update id="successId">
+      UPDATE user_info
+      SET user_pass = 1
+      WHERE user_id = #{id}
+   </update>
+   <!-- 가입 승인 -->
+   <update id="failed">
+      UPDATE user_info
+      SET user_pass = 2
+      WHERE user_id = #{id}
+   </update>
+   <!-- 회원 드롭 -->
+      <update id="dropUser">
+      UPDATE user_info
+      SET user_pass = 3
+      WHERE user_id = #{id}
+   </update>
 	
-	<!-- 가입 승인 -->
-	<update id="successId">
-		UPDATE user_info
-		SET user_pass = 1
-		WHERE user_id = #{id}
-	</update>
-	<!-- 가입 승인 -->
-	<update id="failed">
-		UPDATE user_info
-		SET user_pass = 2
-		WHERE user_id = #{id}
-	</update>
-	<!-- 회원 드롭 -->
-		<update id="dropUser">
-		UPDATE user_info
-		SET user_pass = 3
-		WHERE user_id = #{id}
-	</update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>

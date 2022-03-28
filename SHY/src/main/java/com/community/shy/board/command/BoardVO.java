@@ -26,4 +26,6 @@ public class BoardVO {
 	private int board_type;
 	private Timestamp board_regdate;
 	private int count;
+	private String like_hate;
+
 }

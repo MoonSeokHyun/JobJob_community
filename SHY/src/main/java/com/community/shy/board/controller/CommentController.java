@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +28,16 @@ public class CommentController {
 	private ICommentService service;
 	
 	@PostMapping("/InsertComment")
-	public String InsertComment(@RequestBody CommentVO vo) {
+	public String InsertComment(@RequestBody CommentVO vo,HttpSession session) {
 		System.out.println("댓글 등록 통신 성공");
-		service.CommentRegist(vo);
-		return "InsertSuccess";
+		if(session.getAttribute("login") == null) {
+			return "fail";
+		} else {
+			System.out.println("로긘함. 스크랩 진행");
+			
+			service.CommentRegist(vo);
+			return "InsertSuccess";
+		}
 	}
 
 	@GetMapping("/CommentList/{com_bno}")
@@ -44,7 +52,23 @@ public class CommentController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", list);
 		map.put("total", total);
-
+		
 		return map;
+	}
+	
+	//내가 쓴 댓글 불러오기
+	@GetMapping("/myRecord")
+	public void myRecord(String com_writer, Model model ) {
+		System.out.println("내가 쓴 댓글 불러오기 요청");
+		System.out.println("글 불러오기 요청 id: " + com_writer);
+		
+//		List<BoardVO> boardList = new ArrayList<>();
+//		boardList = service.myRecord(writer);
+//		System.out.println("가져온 글: " + boardList);
+		model.addAttribute("board_writer",com_writer);
+		model.addAttribute("userCom", service.myRecord(com_writer));
+		System.out.println(service.myRecord(com_writer));
+		
+		
 	}
 }

@@ -6,22 +6,26 @@
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<!-- namespaces 탭에서 mvc기능 추가 -->
 	<!-- web.xml에 초기 설정 파일로 이 파일을 추가 -->
-	<!-- <bean id="userLoginSuccessHandler" class="com.community.shy.interceptor.UserLoginSuccessHandler" /> -->
-	<bean id="BoardAuthHandler" class="com.community.shy.interceptor.BoardAuthHandler" />
-	<bean id="UserAuthHandler" class="com.community.shy.interceptor.UserAuthHandler" />
-	
+	<!-- <bean id="userLoginSuccessHandler" class="com.community.shy.interceptor.UserLoginSuccessHandler" 
+		/> -->
+	<bean id="BoardAuthHandler"
+		class="com.community.shy.interceptor.BoardAuthHandler" />
+	<bean class="com.community.shy.interceptor.CommentAuthHandler"
+		id="CommentAuthHandler" />
+
 	<mvc:interceptors>
+		<!-- <mvc:interceptor> <mvc:mapping path="/user/userLogin"/> <ref bean="UserAuthHandler"/> 
+			</mvc:interceptor> -->
+
 		<mvc:interceptor>
-			<mvc:mapping path="/user/userLogin"/> <!-- 컨트롤러 들어가기 전 이름  -->
-			<ref bean="UserAuthHandler"/> <!-- 인터셉터 이름 -->
-		</mvc:interceptor> 
-		
-		<mvc:interceptor>
-			<mvc:mapping path="/board/JBoardUpdate"/> <!-- 수정페이지 이동 -->
-			<mvc:mapping path="/board/JBoardDelete"/> <!-- 삭제페이지 이동 -->
-			<ref bean="BoardAuthHandler"/>
+			<mvc:mapping path="/board/JBoardUpdate" /> <!-- 수정페이지 이동 -->
+			<mvc:mapping path="/board/JBoardDelete" /> <!-- 삭제페이지 이동 -->
+			<ref bean="BoardAuthHandler" />
 		</mvc:interceptor>
 		
-		
+		<mvc:interceptor>
+			<mvc:mapping path="/Comment/InsertComment" />
+			<ref bean="CommentAuthHandler" />
+		</mvc:interceptor>
 	</mvc:interceptors>
 </beans>

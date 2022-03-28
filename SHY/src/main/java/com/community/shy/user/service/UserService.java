@@ -39,13 +39,9 @@ public class UserService implements IUserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
-	
 
 	@Override
 	public UserVO getInfo(String id) {
-
 		return mapper.getInfo(id);
 	}
 
@@ -89,6 +85,7 @@ public class UserService implements IUserService {
 		return mapper.myActivity(id);
 	}
 
+	
 	@Override
 	public List<UserVO> adminUserList() {
 		return mapper.adminUserList();
@@ -112,5 +109,4 @@ public class UserService implements IUserService {
 		mapper.dropUser(id);
 		
 	}
-	
 }

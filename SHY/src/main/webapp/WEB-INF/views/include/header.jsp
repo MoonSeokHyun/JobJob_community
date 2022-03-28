@@ -501,6 +501,9 @@ nav > ul > li:hover ul{opacity:1; }
 .login:hover{
     color : #8947e9;
 }
+.flex-center {
+	height : 50px;
+}
 
 
 </style>
@@ -596,8 +599,8 @@ nav > ul > li:hover ul{opacity:1; }
             <div class="login-form">
                 <form method="post" class="loginForm"> 
                     <input type="text" name="id" class="text-field id" placeholder="아이디">
-                    <input type="password" name="password" class="text-field password" placeholder="비밀번호">
-                    <input type="button" value="Login" class="submit-btn login_btn submit">
+                    <input type="password" name="password" class="text-field password" id="login_pw" onkeyup="enterkey()" placeholder="비밀번호">
+                    <input type="button" value="Login" class="submit-btn login_btn submit" id="login_btn">
                     <input type="button" value="Close" class="submit-btn modal_end_btn ">
                 </form>
                 <div class="links">
@@ -673,6 +676,15 @@ $firstmenu.mouseenter(function(){
 
 
 });
+    
+function enterkey(e) {
+	if (window.event.keyCode === 13) {
+    	// 엔터키가 눌렸을 때
+    	console.log('엔터키 누름');
+    	$('#login_btn').click();
+    }
+};
+   
 
 // 모달 스크립트 
 // 나중에 submit이나 ajax로 데이터 베이스 접속해서 서로 비교할것!!

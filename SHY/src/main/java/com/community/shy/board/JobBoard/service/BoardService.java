@@ -51,14 +51,16 @@ public class BoardService implements IBoardService {
 	}
 
 	@Override
-	public BoardVO JBoardDetail(int board_no, int board_type) {
+	public BoardVO JBoardDetail(int board_no, int board_type, String user_id) {
 		
 		Map<String, Object> data = new HashMap<>();
 		data.put("board_no", board_no);
 		data.put("board_type", board_type);
+		data.put("user_id", user_id);
 		
 		return mapper.JBoardDetail(data);
 	}
+	
 	@Override
 	public int getJTotal(PageVO paging , int board_type) {
 		
@@ -89,6 +91,19 @@ public class BoardService implements IBoardService {
 	public List<BoardVO> myRecord(String writer) {
 		return mapper.myRecord(writer);
 	}
+
+	@Override
+	public List<BoardVO> getBest(List<BoardVO> best) {
+		return mapper.getBest(best);
+	}
+
+	@Override
+	public boolean updateHit(int board_no) {
+		return mapper.updateHit(board_no);
+	}
+	public void insertBoardCnt(Map<String, Object> param) {
+		mapper.insertBoardCnt(param);
+	}
 	
 	@Override
 	public List<BoardVO> getAdminList() {
@@ -112,4 +127,6 @@ public class BoardService implements IBoardService {
 
 		return mapper.admin_findDate(date1, date2);
 	}
+
+	
 }

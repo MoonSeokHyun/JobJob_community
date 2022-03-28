@@ -29,9 +29,21 @@ public class CommentService implements ICommentService {
 		// TODO Auto-generated method stub
 		return mapper.getTotal(com_bno);
 	}
+
+	@Override
+	public List<CommentVO> myRecord(String writer) {
+		return mapper.myRecord(writer);
+	}
+
+	@Override
+	public void commentDelete(CommentVO vo) {
+		mapper.commentDelete(vo);
+		
+	}
 	
 	@Override
 	public List<CommentVO> getComList(String com_wrtier) {
 		return mapper.getComList(com_wrtier);
 	}
+
 }

@@ -467,7 +467,7 @@
         <li><a href="<c:url value ='/admin/admin_main'/>">메인페이지</a> </li>
         <li><a href="<c:url value='/admin/admin_userList'/>"> 회원 관리</a> </li>
         <li><a href="<c:url value='/admin/admin_boardList'/>"> 게시판 관리</a> </li>
-        <li><a href="<c:url value='/admin/admin_dataTotal'/>"> 데이터 요약</a> </li>
+        <li><a href="<c:url value='/admin/admin_dataTotal'/>"> 일별 데이터 조회</a> </li>
       </ul>
 
       <div class="login">
