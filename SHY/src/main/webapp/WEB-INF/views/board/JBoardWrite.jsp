@@ -437,10 +437,10 @@
     		alert('제목을 입력하세요');
     		return;
     	}
-    	/* else if( === '') {
+    	 /* else if($('#cke_1_contents').val() === '') {
     		alert('내용을 입력하세요');
     		return;
-    	} */
+    	}  */
     		
     	$("#board_content").val(CKEDITOR.instances.content.getData());
   

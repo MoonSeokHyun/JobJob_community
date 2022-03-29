@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
         
-    <title>나의 활동</title>
+    <title>나의 활동(작성글)</title>
     
     <style>
 
@@ -102,7 +102,7 @@
 
     <section>
         <h2>
-            나의 활동
+            나의 활동(작성글)
         </h2>
 
     </section>

@@ -91,13 +91,23 @@ public class BoardController {
 	@GetMapping("/JBoardDetail")
 	public void JBoardDetail(@RequestParam("board_no")int board_no, int board_type , Model model, HttpSession session) {
 		System.out.println(board_no+"번 게시물 타입은 "+ board_type);
-		String user_id = ((UserVO)session.getAttribute("login")).getUserId();
-		System.out.println(user_id);
-		service.updateHit(board_no);
-		model.addAttribute("board_no", board_no);
-		model.addAttribute("board_type",board_type);
-		model.addAttribute("boardDetail", service.JBoardDetail(board_no, board_type, user_id));
-	}
+		if(session.getAttribute("login") == null) {
+			service.updateHit(board_no);
+			model.addAttribute("board_no", board_no);
+			model.addAttribute("board_type",board_type);
+			model.addAttribute("boardDetail", service.jBoardDetail(board_no,
+					board_type)); 
+		}else {
+			String user_id = ((UserVO)session.getAttribute("login")).getUserId();
+			System.out.println(user_id);
+			service.updateHit(board_no);
+			model.addAttribute("board_no", board_no);
+			model.addAttribute("board_type",board_type);
+			model.addAttribute("boardDetail", service.JBoardDetail(board_no, board_type, user_id));
+			}
+		}
+	
+	
 	
 
 	

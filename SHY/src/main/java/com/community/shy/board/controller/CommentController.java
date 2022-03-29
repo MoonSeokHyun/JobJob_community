@@ -36,6 +36,7 @@ public class CommentController {
 			System.out.println("로긘함. 스크랩 진행");
 			
 			service.CommentRegist(vo);
+			System.out.println("댓글 등록 서비스 성공");
 			return "InsertSuccess";
 		}
 	}

@@ -10,8 +10,7 @@
 		/> -->
 	<bean id="BoardAuthHandler"
 		class="com.community.shy.interceptor.BoardAuthHandler" />
-	<bean class="com.community.shy.interceptor.CommentAuthHandler"
-		id="CommentAuthHandler" />
+	
 
 	<mvc:interceptors>
 		<!-- <mvc:interceptor> <mvc:mapping path="/user/userLogin"/> <ref bean="UserAuthHandler"/> 
@@ -23,9 +22,6 @@
 			<ref bean="BoardAuthHandler" />
 		</mvc:interceptor>
 		
-		<mvc:interceptor>
-			<mvc:mapping path="/Comment/InsertComment" />
-			<ref bean="CommentAuthHandler" />
-		</mvc:interceptor>
+		
 	</mvc:interceptors>
 </beans>

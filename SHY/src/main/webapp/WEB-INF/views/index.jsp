@@ -502,7 +502,7 @@
 				</c:when>
 				<c:otherwise>
 					<!-- 나중에 if로 세션 비교해서 해줄것! -->
-					<c:if test="${login.userId ne 'master' }">
+					<c:if test="${login.userId ne 'bbb1234' }">
 					<div class="my_info">
 						<a href="<c:url value='/user/mypage' />"><h2>내 정보</h2></a>
 
@@ -526,7 +526,7 @@
 					</div>
 					</c:if>
 					
-					<c:if test="${login.userId eq 'master' }">
+					<c:if test="${login.userId eq 'bbb1234' }">
 					<div class="my_info">
 						<a href="<c:url value='/admin/admin_main' />">
 							<h2>어드민 페이지</h2>

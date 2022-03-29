@@ -20,6 +20,8 @@ public interface IBoardMapper {
 	void JBoardDelete(int board_no);
 //	상세보기
 	BoardVO JBoardDetail(Map<String, Object> data);
+	//로그인 없이 상세보기
+	BoardVO jBoardDetail(Map<String, Object> data);
 	
 //	총게시물수
 	int getJTotal(Map<String, Object> data);
@@ -30,7 +32,7 @@ public interface IBoardMapper {
 //	메인용 리스트
 	List<BoardVO> mainBoard(BoardVO vo);
 	List<BoardVO> getJBoardForMain(Map<String, Object> data);
-	List<BoardVO> getBest(List<BoardVO> best);
+	List<BoardVO> getBest();
 	
 	//내가 쓴글 불러오기
 	List<BoardVO> myRecord(String writer);

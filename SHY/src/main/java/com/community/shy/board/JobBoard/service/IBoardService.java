@@ -20,6 +20,9 @@ public interface IBoardService {
 //	상세보기
 	BoardVO JBoardDetail(int board_no, int board_type, String user_id);
 	
+	//로그인 없이 상세보기
+	BoardVO jBoardDetail(int board_no, int board_type);
+	
 //	총게시물수 
 	int getJTotal(PageVO vo, int board_type);
 //	게시물을 만들때 타입을 전달
@@ -35,7 +38,7 @@ public interface IBoardService {
 	List<BoardVO> myRecord(String writer);
 	
 	//베스트 글 불러오기
-	List<BoardVO> getBest(List<BoardVO> best);
+	List<BoardVO> getBest();
 	
 //  조회수	
 	boolean updateHit(int board_no);

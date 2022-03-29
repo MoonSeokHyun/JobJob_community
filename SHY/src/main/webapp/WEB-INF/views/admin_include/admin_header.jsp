@@ -470,9 +470,7 @@
         <li><a href="<c:url value='/admin/admin_dataTotal'/>"> 일별 데이터 조회</a> </li>
       </ul>
 
-      <div class="login">
-        <span> <a class="login_modal_btn" href="#">로그인</a></span>
-      </div>
+
     </nav>
 
   </header>

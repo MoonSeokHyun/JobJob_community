@@ -460,9 +460,25 @@
 
       // 가입승인 버튼 클릭시 회원가입승인
       $('.appro').click(function(){
-        $('.insert').submit();
-        console.log('회원가입승인!')
-        // 가입승인 메일전송 서비스 만들면 좋을듯
+      	const successId = $(this).data("userId");
+    	console.log(successId);
+    	// 0 가입대기 , 1.가입승인, 2. 가입거절
+    	
+    	$.ajax({
+    		type : 'post',
+    		url : '<c:url value="/admin/successId" />',
+    		data : {
+        		id : successId,
+        	},
+        	success : function(data){
+        	},error : function(status, error) {
+				console.log('에러발생!!');
+
+				console.log(status, error);
+			}
+        	
+    	}); // 아작스 종료
+      $('.modal_approve').fadeIn(500);
       });
 
       // 가입거부 버튼 클릭시 요청 삭제

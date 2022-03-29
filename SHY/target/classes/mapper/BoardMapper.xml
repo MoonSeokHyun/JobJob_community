@@ -35,9 +35,13 @@
    </select>
    
    <select id="getBest" resultType="com.community.shy.board.command.BoardVO">
+   		SELECT * FROM
+   		(
    		SELECT * FROM job_board
+   		ORDER BY board_hit DESC
+   		)
    		<![CDATA[where rowNum<=4]]>
-   		ORDER BY board_like DESC
+   		
    </select>
      
    <select id="getJBoard" resultType="com.community.shy.board.command.BoardVO" >
@@ -103,6 +107,26 @@
             ,(select COUNT(*) FROM board_cnt TT WHERE TT.BOARD_TYPE = BOARD.board_type AND TT.BOARD_NO = BOARD.BOARD_NO AND LIKE_HATE = 'LIKE') AS BOARD_LIKE
             ,(select COUNT(*) FROM board_cnt TT WHERE TT.BOARD_TYPE = BOARD.board_type AND TT.BOARD_NO = BOARD.BOARD_NO AND LIKE_HATE = 'HATE') AS BOARD_HATE
             ,(select LIKE_HATE FROM board_cnt TT WHERE TT.BOARD_TYPE = BOARD.board_type AND TT.BOARD_NO = BOARD.BOARD_NO AND USER_ID = #{user_id}) AS LIKE_HATE
+            FROM job_board BOARD
+      where board_type = #{board_type}
+        and BOARD_NO = #{board_no}
+   </select>
+   
+   <!-- 아이디 없이 상세보기 -->
+   <select id="jBoardDetail" resultType="com.community.shy.board.command.BoardVO">
+      SELECT 
+             BOARD_NO
+            ,BOARD_TITLE
+            ,BOARD_WRITER
+            ,BOARD_CONTENT
+            ,BOARD_HIT
+            ,BOARD_IMG
+            ,BOARD_IMG_PATH
+            ,BOARD_TYPE
+            ,BOARD_REGDATE
+            ,(select COUNT(*) FROM board_cnt TT WHERE TT.BOARD_TYPE = BOARD.board_type AND TT.BOARD_NO = BOARD.BOARD_NO AND LIKE_HATE = 'LIKE') AS BOARD_LIKE
+            ,(select COUNT(*) FROM board_cnt TT WHERE TT.BOARD_TYPE = BOARD.board_type AND TT.BOARD_NO = BOARD.BOARD_NO AND LIKE_HATE = 'HATE') AS BOARD_HATE
+            ,(select LIKE_HATE FROM board_cnt TT WHERE TT.BOARD_TYPE = BOARD.board_type AND TT.BOARD_NO = BOARD.BOARD_NO) AS LIKE_HATE
             FROM job_board BOARD
       where board_type = #{board_type}
         and BOARD_NO = #{board_no}
